@@ -58,7 +58,7 @@ const categories = {
         id: 8,
         name: 'Samsung Tab X',
         price: 1700,
-        description: '...description...'
+        description: '...Another tablet from Samsung...'
       },
     ],
   }
