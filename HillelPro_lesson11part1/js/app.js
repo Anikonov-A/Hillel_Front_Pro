@@ -27,7 +27,7 @@ document.getElementById('left').addEventListener('click', event => {
     const rightElement = document.getElementById('right')
     rightElement.innerHTML='';
 
-    const popUpBlock = document.getElementById('popUp-block');
+    const popUpBlock = document.getElementById('popUpBlock');
     if (popUpBlock) {
         popUpBlock.remove();
     }
@@ -65,7 +65,7 @@ let buy = (buyBtn,parentElement)=>{
     const centerField = document.getElementById('center');
     const body = document.getElementById('body');
     const element = document.createElement('div');
-    element.id = 'popUp-block';
+    element.id = 'popUpBlock';
 
     buyBtn.addEventListener('click',()=>{
 
