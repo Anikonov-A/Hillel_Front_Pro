@@ -1,3 +1,4 @@
+'use strict'
 let showCategories = () => {
     for (let categoryKey in categories) {
         const category = categories[categoryKey];
