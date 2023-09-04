@@ -26,7 +26,7 @@ let showProducts = (products, category) => {
 
 document.getElementById('left').addEventListener('click', event => {
     const rightElement = document.getElementById('right')
-    rightElement.innerHTML='';
+    rightElement.innerHTML = '';
 
     const popUpBlock = document.getElementById('popUpBlock');
     if (popUpBlock) {
@@ -48,33 +48,35 @@ document.getElementById('center').addEventListener('click', event => {
         showDescription(product)
     }
 })
-let showDescription = (product) =>{
+let showDescription = (product) => {
     const buyBtn = document.createElement('button');
     const parentElement = document.getElementById('right');
-    parentElement.innerHTML='';
+    parentElement.innerHTML = '';
 
-    let element =document.createElement('div');
-    element.innerHTML = `Product name: ${product.name} <br> Product description : ${product.description} <br> Price : $${product.price}`;
+    let element = document.createElement('div');
+    element.innerHTML = `Product name: ${product.name} <br>
+                         Product description : ${product.description} <br>
+                         Price : $${product.price}`;
     parentElement.appendChild(element);
 
     buyBtn.textContent = `Buy me`;
     parentElement.appendChild(buyBtn);
-    buy(buyBtn,parentElement);
+    buy(buyBtn, parentElement);
 
 }
-let buy = (buyBtn,parentElement)=>{
+let buy = (buyBtn, parentElement) => {
     const centerField = document.getElementById('center');
     const body = document.getElementById('body');
     const element = document.createElement('div');
     element.id = 'popUpBlock';
 
-    buyBtn.addEventListener('click',()=>{
+    buyBtn.addEventListener('click', () => {
 
-        parentElement.innerHTML='';
-        centerField.innerHTML='';
+        parentElement.innerHTML = '';
+        centerField.innerHTML = '';
         body.appendChild(element)
         element.style.textAlign = 'center';
-        element.textContent =`Thanks for buying`;
+        element.textContent = `Thanks for buying`;
 
         setTimeout(() => {
             body.removeChild(element);
