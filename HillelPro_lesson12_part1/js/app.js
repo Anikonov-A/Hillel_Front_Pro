@@ -1,37 +1,51 @@
 const sendBtn = document.querySelector('#btn');
+
 let cities = {
-    dn:'Dnipro',
-    kv:'Kiev',
-    od:'Odessa'
-
+    dn: 'Dnipro',
+    kv: 'Kiev',
+    od: 'Odessa'
 }
-let getCitiesValue = (cities) =>{
-    for (let keys in cities){
-        let citiesValue = cities[keys];
-        citiesArr.push(citiesValue)
-    }
-    return citiesArr
-}
-const citiesArr = [];
-
-sendBtn.addEventListener('click',()=>{
-    const myForm = document.forms.mainForm;
-    const nameInput = myForm.name.value;
-    const surnameInput = myForm.surname.value;
-    const birthdayDate = myForm.dateOfBirth.value;
-
-    const sexInput = myForm.sex.value;
-
-    const citiesValue = myForm.cities.value;
-    getCitiesValue(cities)
-    const city = cities[citiesValue]
-
-    const textAreaValue = myForm.textarea.value;
-
-    console.log(textAreaValue)
 
 
+sendBtn.addEventListener('click', () => {
+    const myFormElements = document.forms.mainForm.elements;
+    const nameInput = myFormElements.name.value;
+    const surnameInput = myFormElements.surname.value;
+    const birthdayDate = myFormElements.dateOfBirth.value;
 
+    const sexFieldInput = myFormElements.sex.value;
+
+    const citiesValue = myFormElements.cities.value;
+    const city = cities[citiesValue];
+
+    const textAreaValue = myFormElements.textarea.value;
+    const languagesElements = myFormElements.languages;
+    const checkedLanguages = getLangValue(languagesElements);
+    const languages = checkedLanguages.join(', ');
+
+    document.forms.mainForm.classList.add('hidden');
+
+    const parentElement = document.createElement('div');
+    document.body.appendChild(parentElement)
+    parentElement.innerHTML = `
+    <p>Name: ${nameInput}</p>
+    <p>Surname: ${surnameInput}</p>
+    <p>Date of Birth: ${birthdayDate}</p>
+    <p>Sex: ${sexFieldInput}</p>
+    <p>City: ${city}</p>
+    <p>Textarea value: ${textAreaValue}</p>
+    <p>Languages: ${languages}</p>  
+`
+    const backBtn = document.createElement('button');
+    backBtn.textContent = 'Back';
+    backBtn.type='reset'
+    backBtn.addEventListener('click',()=>{
+        mainForm.classList.remove('hidden');
+        document.mainForm.reset()
+        parentElement.innerHTML='';
+        backBtn.remove();
+    })
+    parentElement.appendChild(backBtn)
 
 })
 
