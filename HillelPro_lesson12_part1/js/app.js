@@ -26,7 +26,7 @@ sendBtn.addEventListener('click', () => {
     document.forms.mainForm.classList.add('hidden');
 
     const parentElement = document.createElement('div');
-    document.body.appendChild(parentElement)
+    document.body.appendChild(parentElement);
     parentElement.innerHTML = `
     <p>Name: ${nameInput}</p>
     <p>Surname: ${surnameInput}</p>
@@ -38,14 +38,14 @@ sendBtn.addEventListener('click', () => {
 `
     const backBtn = document.createElement('button');
     backBtn.textContent = 'Back';
-    backBtn.type='reset'
-    backBtn.addEventListener('click',()=>{
+    backBtn.type = 'reset';
+    backBtn.addEventListener('click', () => {
         mainForm.classList.remove('hidden');
-        document.mainForm.reset()
-        parentElement.innerHTML='';
+        document.mainForm.reset();
+        parentElement.innerHTML = '';
         backBtn.remove();
     })
-    parentElement.appendChild(backBtn)
+    parentElement.appendChild(backBtn);
 
 })
 
