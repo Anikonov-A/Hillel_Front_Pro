@@ -50,6 +50,24 @@ let getValueFromObjectToSelect = (item, select) => {
     return valueArr
 }
 
+let showError = (inputField, errorMessage) => {
+    const errorElement = document.createElement('div');
+    errorElement.classList.add('error');
+    errorElement.textContent = errorMessage;
+    inputField.parentNode.insertBefore(errorElement, inputField.nextSibling);
+}
+let deleteErrors = () => {
+    const errorElements = document.querySelectorAll('.error');
+    errorElements.forEach((errorElement) => {
+        errorElement.remove();
+    });
+}
+
+let isAnyErrorDisplayed = () => {
+    const existingErrors = document.querySelectorAll('.error');
+    return existingErrors.length > 0;
+}
+
 let buy = (buyBtn, parentElement) => {
     const centerField = document.getElementById('center');
     const body = document.getElementById('body');
@@ -172,23 +190,17 @@ let buy = (buyBtn, parentElement) => {
 
         submitBtn.addEventListener('click', () => {
             //add error message
-            let showError = (inputField, errorMessage) => {
-                const errorElement = document.createElement('div');
-                errorElement.classList.add('error');
-                errorElement.textContent = errorMessage;
-                inputField.parentNode.insertBefore(errorElement, inputField.nextSibling);
-            }
+
             //delete all errors
-            let deleteErrors = () => {
-                const errorElements = document.querySelectorAll('.error');
-                errorElements.forEach((errorElement) => {
-                    errorElement.remove();
-                });
-            }
+
             //name value
             const fullName = input.value
             if (fullName === "" || fullName === " " || !isNaN(fullName)) {
+                if (isAnyErrorDisplayed()) {
+                    deleteErrors();
+                }
                 showError(input, 'Enter correct name');
+
                 return;
             }
             //city value
@@ -197,6 +209,9 @@ let buy = (buyBtn, parentElement) => {
             //post office
             const postOfficeNumber = postInput.value
             if (!postOfficeNumber.startsWith("№")||isNaN(postOfficeNumber.slice(1)) || postOfficeNumber <= 1) {
+                if (isAnyErrorDisplayed()) {
+                    deleteErrors();
+                }
                 showError(postInput, `Enter valid post number starting with №`)
                 return;
             }
@@ -205,6 +220,9 @@ let buy = (buyBtn, parentElement) => {
             const selectedPaymentsName = payments[selectedPayments];
             const cardNumber = fieldForCard.value;
             if (selectedPayments === "card") {
+                if (isAnyErrorDisplayed()) {
+                    deleteErrors();
+                }
                 if (cardNumber.length !== 16 || isNaN(cardNumber)) {
                     showError(fieldForCard, `Enter valid card number`);
                     return;
@@ -213,9 +231,14 @@ let buy = (buyBtn, parentElement) => {
             //Number of products value
             const numberOfProducts = productsInput.value;
             if (numberOfProducts <= 0 || isNaN(numberOfProducts)) {
+                if (isAnyErrorDisplayed()) {
+                    deleteErrors();
+                }
                 showError(productsInput, `Enter correct number`);
                 return;
             }
+
+
             deleteErrors()
             //Comment value
             const textAreaValue = commentArea.value;
@@ -233,7 +256,7 @@ let buy = (buyBtn, parentElement) => {
                 <p>City: ${selectedCityName}</p>
                 <p>Post officeNumber: ${postOfficeNumber}</p>
                 <p>Pay method: ${selectedPaymentsName}</p>`;
-                if (selectedPaymentsName === "card" && cardNumber) {
+                if (selectedPaymentsName === "card" || cardNumber) {
                     orderContent.innerHTML += `<p>Card number: ${cardNumber}</p>`;
                 }
                 orderContent.innerHTML += `
