@@ -188,8 +188,8 @@ let buy = (buyBtn, parentElement) => {
                 }
                 return fullName
             }
-            const postOfficeNumber = postInput.value
 
+            const postOfficeNumber = postInput.value
             let postOfficeValidation = () => {
                 if (postOfficeNumber <= 0) {
                     showError(postInput, `Enter valid post number bigger than 0`)
@@ -211,7 +211,6 @@ let buy = (buyBtn, parentElement) => {
                 return cardNumber;
             }
 
-
             const numberOfProducts = productsInput.value;
             let validationProductsNum = () => {
 
@@ -224,7 +223,6 @@ let buy = (buyBtn, parentElement) => {
 
 
             const textAreaValue = commentArea.value;
-
 
             const orderInfoCard = document.createElement('div');
             orderInfoCard.id = 'order';
