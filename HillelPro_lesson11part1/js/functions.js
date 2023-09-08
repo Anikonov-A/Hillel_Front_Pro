@@ -63,11 +63,6 @@ let deleteErrors = () => {
     });
 }
 
-let isAnyErrorDisplayed = () => {
-    const existingErrors = document.querySelectorAll('.error');
-    return existingErrors.length > 0;
-}
-
 let buy = (buyBtn, parentElement) => {
     const centerField = document.getElementById('center');
     const body = document.getElementById('body');
@@ -117,15 +112,7 @@ let buy = (buyBtn, parentElement) => {
         }
 
     });
-    // paymentSelect.addEventListener('input',()=>{
-    //     const cardNumber = fieldForCard.value;
-    //     if (cardNumber.length !== 16 || isNaN(cardNumber)){
-    //         fieldForCard.parentNode.appendChild(error)
-    //         error.innerHTML = 'please enter a correct card number'
-    //     }else{
-    //         error.innerHTML = ''
-    //     }
-    // })
+
 
     //Product counter
     const productsNumberLabel = document.createElement('label');
@@ -151,12 +138,7 @@ let buy = (buyBtn, parentElement) => {
         parentElement.innerHTML = '';
         centerField.innerHTML = '';
         body.appendChild(element);
-        // element.style.textAlign = 'center';
-        // element.textContent = `Thanks for buying`;
-        //
-        // setTimeout(() => {
-        //     body.removeChild(element);
-        // }, 5000);
+
         element.appendChild(myForm);
 
         myForm.appendChild(nameLabel);
@@ -189,72 +171,85 @@ let buy = (buyBtn, parentElement) => {
         myForm.appendChild(submitBtn);
 
         submitBtn.addEventListener('click', () => {
-            //add error message
 
-            //delete all errors
 
-            //name value
-            const fullName = input.value
-            if (fullName === "" || fullName === " " || !isNaN(fullName)) {
-                if (isAnyErrorDisplayed()) {
-                    deleteErrors();
-                }
-                showError(input, 'Enter correct name');
-
-                return;
-            }
             //city value
             const selectedCityValue = citySelect.value;
             const selectedCityName = cities[selectedCityValue];
             //post office
-            const postOfficeNumber = postInput.value
-            if (!postOfficeNumber.startsWith("№")||isNaN(postOfficeNumber.slice(1)) || postOfficeNumber <= 1) {
-                if (isAnyErrorDisplayed()) {
-                    deleteErrors();
-                }
-                showError(postInput, `Enter valid post number starting with №`)
-                return;
-            }
-            //payments value
             const selectedPayments = paymentSelect.value;
             const selectedPaymentsName = payments[selectedPayments];
-            const cardNumber = fieldForCard.value;
-            if (selectedPayments === "card") {
-                if (isAnyErrorDisplayed()) {
-                    deleteErrors();
-                }
-                if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-                    showError(fieldForCard, `Enter valid card number`);
+
+            const fullName = input.value
+            let fullNameValidation = () => {
+                if (fullName === "" || fullName === " " || !isNaN(fullName)) {
+                    showError(input, 'Enter correct name');
                     return;
                 }
+                return fullName
             }
-            //Number of products value
-            const numberOfProducts = productsInput.value;
-            if (numberOfProducts <= 0 || isNaN(numberOfProducts)) {
-                if (isAnyErrorDisplayed()) {
-                    deleteErrors();
+            const postOfficeNumber = postInput.value
+
+            let postOfficeValidation = () => {
+                if (postOfficeNumber <= 0) {
+                    showError(postInput, `Enter valid post number bigger than 0`)
+                    return;
                 }
-                showError(productsInput, `Enter correct number`);
-                return;
+                return postOfficeNumber;
+            }
+
+            const cardNumber = fieldForCard.value;
+            let validatePayment = () =>{
+                if (selectedPayments === 'cash'){
+                    return selectedPaymentsName
+                }else if(selectedPayments === "card") {
+                    if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+                        showError(fieldForCard, `Enter valid card number`);
+                        return;
+                    }
+                }
+                return cardNumber;
             }
 
 
-            deleteErrors()
-            //Comment value
+            const numberOfProducts = productsInput.value;
+            let validationProductsNum = () => {
+
+                if (numberOfProducts <= 0 || isNaN(numberOfProducts)) {
+                    showError(productsInput, `Enter correct number`);
+                    return;
+                }
+                return numberOfProducts
+            }
+
+
             const textAreaValue = commentArea.value;
+
 
             const orderInfoCard = document.createElement('div');
             orderInfoCard.id = 'order';
             orderInfoCard.style.display = 'none';
 
-            let showOrderCard = (fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue) => {
+            const validationFunction = () =>{
+                const validName = fullNameValidation();
+                const validOffice = postOfficeValidation();
+                const validPayment = validatePayment();
+                const validProducts = validationProductsNum()
+                return validName && validOffice && validPayment && validProducts;
+            }
+            deleteErrors();
+            if (validationFunction()){
+                showOrderCard(fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue)
+            }
+
+            function showOrderCard(fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue){
                 const orderContent = document.createElement('div');
                 orderContent.id = 'oContent'
                 orderContent.innerHTML = `
                 <h3>Order info: </h3>
                 <p>Name: ${fullName}</p>
                 <p>City: ${selectedCityName}</p>
-                <p>Post officeNumber: ${postOfficeNumber}</p>
+                <p>Post office Number: ${postOfficeNumber}</p>
                 <p>Pay method: ${selectedPaymentsName}</p>`;
                 if (selectedPaymentsName === "card" || cardNumber) {
                     orderContent.innerHTML += `<p>Card number: ${cardNumber}</p>`;
@@ -277,7 +272,9 @@ let buy = (buyBtn, parentElement) => {
                 myForm.style.display = 'none';
             }
 
-            showOrderCard(fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue)
+
+
+
 
 
         })
