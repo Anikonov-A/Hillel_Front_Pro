@@ -62,24 +62,24 @@ let deleteErrors = () => {
         errorElement.remove();
     });
 }
-let fullNameValidation = (name,input,errMsg) => {
+let fullNameValidation = (name, input, errMsg) => {
     if (name === "" || name === " " || !isNaN(name)) {
         showError(input, errMsg);
         return;
     }
     return name
 }
-let postOfficeValidation = (value,input,errMsg) => {
+let postOfficeValidation = (value, input, errMsg) => {
     if (value <= 0) {
-        showError(input,errMsg)
+        showError(input, errMsg)
         return;
     }
     return value;
 }
-let validatePayment = (selectedValue,selectedValueName,cardNumber,fieldForCard,errMsg) =>{
-    if (selectedValue === 'cash'){
+let validatePayment = (selectedValue, selectedValueName, cardNumber, fieldForCard, errMsg) => {
+    if (selectedValue === 'cash') {
         return selectedValueName
-    }else if(selectedValue === "card") {
+    } else if (selectedValue === "card") {
         if (cardNumber.length !== 16 || isNaN(cardNumber)) {
             showError(fieldForCard, errMsg);
             return;
@@ -87,7 +87,7 @@ let validatePayment = (selectedValue,selectedValueName,cardNumber,fieldForCard,e
     }
     return cardNumber;
 }
-let validationProductsNum = (value,input,errMsg) => {
+let validationProductsNum = (value, input, errMsg) => {
     if (value <= 0 || isNaN(value)) {
         showError(input, errMsg);
         return;
@@ -205,7 +205,6 @@ let buy = (buyBtn, parentElement) => {
 
         submitBtn.addEventListener('click', () => {
 
-
             //city value
             const selectedCityValue = citySelect.value;
             const selectedCityName = cities[selectedCityValue];
@@ -224,21 +223,30 @@ let buy = (buyBtn, parentElement) => {
 
             const orderInfoCard = document.createElement('div');
             orderInfoCard.id = 'order';
-            orderInfoCard.style.display = 'none';
-
-            const validationFunction = () =>{
-                const validName = fullNameValidation(fullName,input,'Enter correct name');
-                const validOffice = postOfficeValidation(postOfficeNumber,postInput,`Enter valid post number bigger than 0`);
-                const validPayment = validatePayment(selectedPayments,selectedPaymentsName,cardNumber,fieldForCard,`Enter valid card number`);
-                const validProducts = validationProductsNum(numberOfProducts,productsInput,`Enter correct number`)
+            // orderInfoCard.style.display = 'none';
+            orderInfoCard.classList.add('hidden')
+            const validationFunction = () => {
+                const validName = fullNameValidation(fullName, input, 'Enter correct name');
+                const validOffice = postOfficeValidation(postOfficeNumber, postInput, `Enter valid post number bigger than 0`);
+                const validPayment = validatePayment(selectedPayments, selectedPaymentsName, cardNumber, fieldForCard, `Enter valid card number`);
+                const validProducts = validationProductsNum(numberOfProducts, productsInput, `Enter correct number`)
                 return validName && validOffice && validPayment && validProducts;
             }
             deleteErrors();
-            if (validationFunction()){
-                showOrderCard(fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue)
+            if (validationFunction()) {
+                const orderData = {
+                    fullName,
+                    selectedCityName,
+                    postOfficeNumber,
+                    selectedPaymentsName,
+                    cardNumber,
+                    numberOfProducts,
+                    textAreaValue,
+                }
+                showOrderCard(orderData);
             }
-
-            function showOrderCard(fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue){
+            function showOrderCard(orderData) {
+                const {fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue} = orderData;
                 const orderContent = document.createElement('div');
                 orderContent.id = 'oContent'
                 orderContent.innerHTML = `
@@ -256,12 +264,8 @@ let buy = (buyBtn, parentElement) => {
 
                 orderInfoCard.innerHTML = '';
                 orderInfoCard.appendChild(orderContent);
-                orderInfoCard.style.display = 'flex';
-                orderInfoCard.style.alignItems = 'center';
-                orderContent.style.border = '1px solid black'
-                orderContent.style.width = '300px'
-                orderContent.style.textAlign = 'center'
-                orderContent.style.borderRadius = '16px'
+                orderInfoCard.classList.add('visible-card')
+
                 const parentEl = document.getElementById('popUpBlock')
                 parentEl.appendChild(orderInfoCard)
                 myForm.reset();

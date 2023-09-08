@@ -47,6 +47,14 @@
 .hidden{
     display: none;
 }
+.visible-card{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    width: 300px;
+    text-align: center;
+    border-radius: 16px;
+}
 .error{
     color: red;
 }
@@ -54,7 +62,6 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-
 }
 #oContent{
 
