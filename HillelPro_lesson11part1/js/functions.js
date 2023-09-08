@@ -62,6 +62,39 @@ let deleteErrors = () => {
         errorElement.remove();
     });
 }
+let fullNameValidation = (name,input,errMsg) => {
+    if (name === "" || name === " " || !isNaN(name)) {
+        showError(input, errMsg);
+        return;
+    }
+    return name
+}
+let postOfficeValidation = (value,input,errMsg) => {
+    if (value <= 0) {
+        showError(input,errMsg)
+        return;
+    }
+    return value;
+}
+let validatePayment = (selectedValue,selectedValueName,cardNumber,fieldForCard,errMsg) =>{
+    if (selectedValue === 'cash'){
+        return selectedValueName
+    }else if(selectedValue === "card") {
+        if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+            showError(fieldForCard, errMsg);
+            return;
+        }
+    }
+    return cardNumber;
+}
+let validationProductsNum = (value,input,errMsg) => {
+    if (value <= 0 || isNaN(value)) {
+        showError(input, errMsg);
+        return;
+    }
+    return value
+}
+
 
 let buy = (buyBtn, parentElement) => {
     const centerField = document.getElementById('center');
@@ -181,45 +214,25 @@ let buy = (buyBtn, parentElement) => {
             const selectedPaymentsName = payments[selectedPayments];
 
             const fullName = input.value
-            let fullNameValidation = () => {
-                if (fullName === "" || fullName === " " || !isNaN(fullName)) {
-                    showError(input, 'Enter correct name');
-                    return;
-                }
-                return fullName
-            }
 
             const postOfficeNumber = postInput.value
-            let postOfficeValidation = () => {
-                if (postOfficeNumber <= 0) {
-                    showError(postInput, `Enter valid post number bigger than 0`)
-                    return;
-                }
-                return postOfficeNumber;
-            }
+
 
             const cardNumber = fieldForCard.value;
-            let validatePayment = () =>{
-                if (selectedPayments === 'cash'){
-                    return selectedPaymentsName
-                }else if(selectedPayments === "card") {
-                    if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-                        showError(fieldForCard, `Enter valid card number`);
-                        return;
-                    }
-                }
-                return cardNumber;
-            }
+            // let validatePayment = () =>{
+            //     if (selectedPayments === 'cash'){
+            //         return selectedPaymentsName
+            //     }else if(selectedPayments === "card") {
+            //         if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+            //             showError(fieldForCard, `Enter valid card number`);
+            //             return;
+            //         }
+            //     }
+            //     return cardNumber;
+            // }
 
             const numberOfProducts = productsInput.value;
-            let validationProductsNum = () => {
 
-                if (numberOfProducts <= 0 || isNaN(numberOfProducts)) {
-                    showError(productsInput, `Enter correct number`);
-                    return;
-                }
-                return numberOfProducts
-            }
 
 
             const textAreaValue = commentArea.value;
@@ -229,10 +242,10 @@ let buy = (buyBtn, parentElement) => {
             orderInfoCard.style.display = 'none';
 
             const validationFunction = () =>{
-                const validName = fullNameValidation();
-                const validOffice = postOfficeValidation();
-                const validPayment = validatePayment();
-                const validProducts = validationProductsNum()
+                const validName = fullNameValidation(fullName,input,'Enter correct name');
+                const validOffice = postOfficeValidation(postOfficeNumber,postInput,`Enter valid post number bigger than 0`);
+                const validPayment = validatePayment(selectedPayments,selectedPaymentsName,cardNumber,fieldForCard,`Enter valid card number`);
+                const validProducts = validationProductsNum(numberOfProducts,productsInput,`Enter correct number`)
                 return validName && validOffice && validPayment && validProducts;
             }
             deleteErrors();
