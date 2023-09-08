@@ -209,31 +209,16 @@ let buy = (buyBtn, parentElement) => {
             //city value
             const selectedCityValue = citySelect.value;
             const selectedCityName = cities[selectedCityValue];
-            //post office
+
             const selectedPayments = paymentSelect.value;
             const selectedPaymentsName = payments[selectedPayments];
 
             const fullName = input.value
-
+            //post office
             const postOfficeNumber = postInput.value
 
-
             const cardNumber = fieldForCard.value;
-            // let validatePayment = () =>{
-            //     if (selectedPayments === 'cash'){
-            //         return selectedPaymentsName
-            //     }else if(selectedPayments === "card") {
-            //         if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-            //             showError(fieldForCard, `Enter valid card number`);
-            //             return;
-            //         }
-            //     }
-            //     return cardNumber;
-            // }
-
             const numberOfProducts = productsInput.value;
-
-
 
             const textAreaValue = commentArea.value;
 
