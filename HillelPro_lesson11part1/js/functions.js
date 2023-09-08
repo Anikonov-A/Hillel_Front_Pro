@@ -271,12 +271,6 @@ let buy = (buyBtn, parentElement) => {
                 myForm.reset();
                 myForm.style.display = 'none';
             }
-
-
-
-
-
-
         })
 
     })
