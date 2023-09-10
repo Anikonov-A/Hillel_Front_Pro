@@ -10,7 +10,6 @@ let showCategories = () => {
         parentElement.appendChild(element);
     }
     myOrders()
-
 }
 
 
@@ -69,7 +68,7 @@ function myOrders() {
                 localStorage.setItem('userOrder', JSON.stringify(orders));
                 orderLi.remove();
                 rightBlock.innerHTML='';
-                description.classList.add('hidden')
+                // description.classList.add('hidden')
             })
 
             orderLi.addEventListener('click', () => {
