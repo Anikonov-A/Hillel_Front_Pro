@@ -50,14 +50,31 @@ function myOrders() {
         });
 
         let order = JSON.parse(localStorage.getItem('userOrder')) || [];
-        for (let order of orders) {
-            const orderParse = JSON.parse(order)
+        for (let i = 0; i < order.length; i++) {
+            const orderParse = JSON.parse(order[i]);
+            const btn = document.createElement('button');
+            btn.setAttribute('type', 'button');
+            btn.textContent = 'x';
+
             const orderLi = document.createElement('li');
-            orderLi.textContent = `Name: ${orderParse.chosenProduct},Total price: ${orderParse.sumPrice}$,Time: ${orderParse.date}`;
+            orderLi.textContent = `Name: ${orderParse.chosenProduct},Total: ${orderParse.sumPrice}$,Time: ${orderParse.date}`;
+            const description = document.createElement('div')
+
+            btn.setAttribute('data-order-index', i);
             orderUl.appendChild(orderLi)
+            orderLi.appendChild(btn)
+            btn.addEventListener('click',()=>{
+                const orderToDelete = btn.getAttribute('data-order-index');
+                orders.splice(orderToDelete, 1);
+                localStorage.setItem('userOrder', JSON.stringify(orders));
+                orderLi.remove();
+                rightBlock.innerHTML='';
+                description.classList.add('hidden')
+            })
+
             orderLi.addEventListener('click', () => {
                 rightBlock.innerHTML = '';
-                const description = document.createElement('div')
+
                 rightBlock.appendChild(description)
                 description.innerText = `Order info: 
                                         Name: ${orderParse.name}
@@ -74,6 +91,7 @@ function myOrders() {
                                         Date: ${orderParse.date}`;
 
             });
+
         }
     })
 }
@@ -132,7 +150,7 @@ function showOrderCard(orderData) {
     }
     const userObject = JSON.stringify(userObj)
 
-    orders.push(`${userObject}`);
+    orders.push(userObject);
     localStorage.setItem("userOrder",JSON.stringify(orders));
 }
 
