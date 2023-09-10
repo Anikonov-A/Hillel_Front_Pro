@@ -9,6 +9,131 @@ let showCategories = () => {
         element.setAttribute('data-category', categoryKey);
         parentElement.appendChild(element);
     }
+    myOrders()
+
+}
+
+
+let orders = [] ;
+function myOrders() {
+    const leftBlock = document.getElementById('left');
+    const centerBlock = document.getElementById('center');
+    const rightBlock = document.getElementById('right');
+
+    const myOrders = document.createElement('button');
+    const orderUl = document.createElement('ul');
+    const orderLi = document.createElement('li');
+
+    myOrders.setAttribute('type', 'button')
+    myOrders.id = 'orderBtn';
+    myOrders.textContent = 'Order btn';
+
+    // const rightBlock = document.getElementById('left');
+    const backBtn = document.createElement('button');
+    backBtn.id = 'backBtn';
+    backBtn.setAttribute('type', 'button');
+    backBtn.textContent = 'Back to categories';
+
+    leftBlock.appendChild(myOrders);
+
+    myOrders.addEventListener('click', () => {
+        leftBlock.innerHTML = '';
+        rightBlock.innerHTML = '';
+        centerBlock.innerHTML='';
+
+        centerBlock.appendChild(orderUl);
+        leftBlock.appendChild(backBtn);
+        backBtn.addEventListener('click', () => {
+            leftBlock.innerHTML = '';
+            centerBlock.innerHTML= '';
+            showCategories()
+        });
+
+        let order = JSON.parse(localStorage.getItem('userOrder')) || [];
+        for (let order of orders) {
+            const orderParse = JSON.parse(order)
+            const orderLi = document.createElement('li');
+            orderLi.textContent = `Name: ${orderParse.chosenProduct},Total price: ${orderParse.sumPrice}$,Time: ${orderParse.date}`;
+            orderUl.appendChild(orderLi)
+            orderLi.addEventListener('click', () => {
+                rightBlock.innerHTML = '';
+                const description = document.createElement('div')
+                rightBlock.appendChild(description)
+                description.innerText = `Order info: 
+                                        Name: ${orderParse.name}
+                                        City: ${orderParse.city}
+                                        Post office Number: ${orderParse.post}
+                                        Pay method: ${orderParse.typeOfPayment}`;
+                if (orderParse.typeOfPayment === "card" || orderParse.card) {
+                    description.innerText += `Card number: ${orderParse.card}`;
+                }
+                description.innerText += `
+                                        Product: ${orderParse.chosenProduct}    
+                                        Total Price: ${orderParse.sumPrice}
+                                        Comment to order: ${orderParse.comment}
+                                        Date: ${orderParse.date}`;
+
+            });
+        }
+    })
+}
+function showOrderCard(orderData) {
+    const {
+        fullName,
+        selectedCityName,
+        postOfficeNumber,
+        selectedPaymentsName,
+        cardNumber,
+        numberOfProducts,
+        textAreaValue,
+        chosenProduct,
+        orderInfoCard,
+        myForm,
+
+    } = orderData;
+    const orderContent = document.createElement('div');
+    orderContent.setAttribute("id", 'oContent');
+    let sumPrice = chosenProduct.price * numberOfProducts;
+    const date = new Date().toLocaleTimeString();
+    // const userOrder = JSON.stringify(chosenProduct);
+
+    orderContent.innerHTML = `
+                <h3>Order info: </h3>
+                <p>Name: ${fullName}</p>
+                <p>City: ${selectedCityName}</p>
+                <p>Post office Number: ${postOfficeNumber}</p>
+                <p>Pay method: ${selectedPaymentsName}</p>`;
+    if (selectedPaymentsName === "card" || cardNumber) {
+        orderContent.innerHTML += `<p>Card number: ${cardNumber}</p>`;
+    }
+    orderContent.innerHTML += `
+                <p>Product: ${chosenProduct.name}</p>     
+                <p>Number of products: ${numberOfProducts}</p>
+                <p>Comment to order: ${textAreaValue}</p>`;
+//add sumPrice in <p>
+    orderInfoCard.innerHTML = '';
+    orderInfoCard.appendChild(orderContent);
+    orderInfoCard.classList.add('visible-card');
+    const parentEl = document.getElementById('popUpBlock')
+    parentEl.appendChild(orderInfoCard)
+    myForm.reset();
+    myForm.style.display = 'none';
+    let userObj = {
+        name:fullName,
+        city:selectedCityName,
+        post:postOfficeNumber,
+        typeOfPayment:selectedPaymentsName,
+        card:cardNumber,
+        numberOfProducts:numberOfProducts,
+        comment:textAreaValue,
+        chosenProduct:chosenProduct.name,
+        sumPrice:sumPrice,
+        date:date,
+    }
+    const userObject = JSON.stringify(userObj)
+
+    orders.push(`${userObject}`);
+    localStorage.setItem("userOrder",JSON.stringify(orders));
 }
 
 let showProducts = (products, category) => {
@@ -35,8 +160,9 @@ let showDescription = (product) => {
     parentElement.appendChild(element);
 
     buyBtn.textContent = `Buy me`;
+    buyBtn.setAttribute('id', 'buyMeBtn')
     parentElement.appendChild(buyBtn);
-    buy(buyBtn, parentElement);
+    buy(buyBtn, parentElement, product);//передаем выбраный продукт далее
 
 }
 let getValueFromObjectToSelect = (item, select) => {
@@ -96,15 +222,16 @@ let validationProductsNum = (value, input, errMsg) => {
 }
 
 
-let buy = (buyBtn, parentElement) => {
+let buy = (buyBtn, parentElement, product) => {
+    const chosenProduct = product;
     const centerField = document.getElementById('center');
     const body = document.getElementById('body');
     const element = document.createElement('div');
 
-    element.id = 'popUpBlock';
+    element.setAttribute('id', 'popUpBlock')
     //Create form
     const myForm = document.createElement('form');
-    myForm.id = 'myForm';
+    myForm.setAttribute('id', 'myForm')
     //Name field
     const nameLabel = document.createElement('label');
     nameLabel.textContent = " Enter your full name below: ";
@@ -222,7 +349,7 @@ let buy = (buyBtn, parentElement) => {
             const textAreaValue = commentArea.value;
 
             const orderInfoCard = document.createElement('div');
-            orderInfoCard.id = 'order';
+            orderInfoCard.setAttribute('id', 'order');
             // orderInfoCard.style.display = 'none';
             orderInfoCard.classList.add('hidden')
             const validationFunction = () => {
@@ -242,37 +369,13 @@ let buy = (buyBtn, parentElement) => {
                     cardNumber,
                     numberOfProducts,
                     textAreaValue,
+                    chosenProduct,
+                    orderInfoCard,
+                    myForm,//?
                 }
                 showOrderCard(orderData);
-            }
-            function showOrderCard(orderData) {
-                const {fullName, selectedCityName, postOfficeNumber, selectedPaymentsName, cardNumber, numberOfProducts, textAreaValue} = orderData;
-                const orderContent = document.createElement('div');
-                orderContent.id = 'oContent'
-                orderContent.innerHTML = `
-                <h3>Order info: </h3>
-                <p>Name: ${fullName}</p>
-                <p>City: ${selectedCityName}</p>
-                <p>Post office Number: ${postOfficeNumber}</p>
-                <p>Pay method: ${selectedPaymentsName}</p>`;
-                if (selectedPaymentsName === "card" || cardNumber) {
-                    orderContent.innerHTML += `<p>Card number: ${cardNumber}</p>`;
-                }
-                orderContent.innerHTML += `
-                <p>Number of products: ${numberOfProducts}</p>
-                <p>Comment to order: ${textAreaValue}</p>`;
-
-                orderInfoCard.innerHTML = '';
-                orderInfoCard.appendChild(orderContent);
-                orderInfoCard.classList.add('visible-card')
-
-                const parentEl = document.getElementById('popUpBlock')
-                parentEl.appendChild(orderInfoCard)
-                myForm.reset();
-                myForm.style.display = 'none';
             }
         })
 
     })
 }
-
