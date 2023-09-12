@@ -14,6 +14,8 @@ let showCategories = () => {
 
 
 let orders = [] ;
+
+
 function myOrders() {
     const leftBlock = document.getElementById('left');
     const centerBlock = document.getElementById('center');
@@ -70,24 +72,41 @@ function myOrders() {
                 rightBlock.innerHTML='';
                 // description.classList.add('hidden')
             })
+            //create el for card
+            const orderInfoCard = document.createElement('div')
+            let orderObj = {
+                fullName:orderParse.name,
+                selectedCityName:orderParse.city,
+                postOfficeNumber:orderParse.post,
+                selectedPaymentsName:orderParse.typeOfPayment,
+                cardNumber:orderParse.card,
+                numberOfProducts:orderParse.sumPrice,
+                textAreaValue:orderParse.comment,
+                chosenProduct:orderParse.chosenProduct,
+                orderInfoCard,
+                //add new element here
+
+            }
 
             orderLi.addEventListener('click', () => {
                 rightBlock.innerHTML = '';
+                showOrderCard(orderObj)
 
-                rightBlock.appendChild(description)
-                description.innerText = `Order info: 
-                                        Name: ${orderParse.name}
-                                        City: ${orderParse.city}
-                                        Post office Number: ${orderParse.post}
-                                        Pay method: ${orderParse.typeOfPayment}`;
-                if (orderParse.typeOfPayment === "card" || orderParse.card) {
-                    description.innerText += `Card number: ${orderParse.card}`;
-                }
-                description.innerText += `
-                                        Product: ${orderParse.chosenProduct}    
-                                        Total Price: ${orderParse.sumPrice}
-                                        Comment to order: ${orderParse.comment}
-                                        Date: ${orderParse.date}`;
+                // rightBlock.appendChild(description)
+                // description.innerText = `Order info:
+                //                         Name: ${orderParse.name}
+                //                         City: ${orderParse.city}
+                //                         Post office Number: ${orderParse.post}
+                //                         Pay method: ${orderParse.typeOfPayment}`;
+                // if (orderParse.typeOfPayment === "card" || orderParse.card) {
+                //     description.innerText += `Card number: ${orderParse.card}`;
+                // }
+                // description.innerText += `
+                //                         Product: ${orderParse.chosenProduct}
+                //                         Total Price: ${orderParse.sumPrice}
+                //                         Comment to order: ${orderParse.comment}
+                //                         Date: ${orderParse.date}`;
+
 
             });
 
@@ -114,6 +133,9 @@ function showOrderCard(orderData) {
     const date = new Date().toLocaleTimeString();
     // const userOrder = JSON.stringify(chosenProduct);
 
+    const div = document.createElement('div');
+    div.setAttribute('id','popUpBlock')
+    orderContent.appendChild(div)
     orderContent.innerHTML = `
                 <h3>Order info: </h3>
                 <p>Name: ${fullName}</p>
@@ -152,6 +174,15 @@ function showOrderCard(orderData) {
     orders.push(userObject);
     localStorage.setItem("userOrder",JSON.stringify(orders));
 }
+
+
+function addToLocalStorage(order) {
+    const orders = JSON.parse(localStorage.getItem('userOrder')) || [];
+    orders.push(order);
+    localStorage.setItem('userOrder', JSON.stringify(orders));
+}
+
+
 
 let showProducts = (products, category) => {
     const parentElement = document.getElementById('center');

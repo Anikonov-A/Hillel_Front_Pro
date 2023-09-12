@@ -1,0 +1,29 @@
+
+#users{
+    display: flex;
+    flex-direction: column;
+}
+#users > div  {
+    display: flex;
+    gap: 20px;
+    margin: 5px;
+}
+.actions > input{
+    margin-right: 5px;
+}
+.editBtn{
+    width: 70px;
+}
+#form form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.error{
+    background: red;
+}
+.user-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
