@@ -31,5 +31,7 @@ function createElement(tagName,parentElement,content,attributes,handlers){
 function removeElement(element){
     if (typeof element ==='string'){
         document.querySelector(element).remove()
+    }else{
+        element.remove()
     }
 }
