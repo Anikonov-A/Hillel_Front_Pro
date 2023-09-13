@@ -13,6 +13,49 @@
 // Після перезавантаження сторінки всі зміни повинні зберігатись (використовувати localStorage)//done
 //
 
+function createElement(tagName, parentElement, content, attributes, handlers) {
+    let parent;
+    if (typeof parentElement === 'string') {
+        parent = document.querySelector(parentElement);
+    } else {
+        parent = parentElement;
+    }
+
+
+    const element = document.createElement(tagName);
+
+    if (content) {
+        element.textContent = content;
+    }
+    for (let attribute in attributes) {
+        if (attribute === 'className') {
+            element.setAttribute('class', attributes[attribute]);
+        } else {
+            element.setAttribute(attribute, attributes[attribute]);
+        }
+
+    }
+    for (let eventName in handlers) {
+        element.addEventListener(eventName, handlers[eventName]);
+    }
+
+    parent.appendChild(element);
+
+    return element;
+}
+
+function removeElement(element) {
+    if (typeof element === 'string') {
+        document.querySelector(element).remove()
+    } else {
+        element.remove()
+    }
+}
+
+const users = JSON.parse(localStorage.getItem('users')) || defaultUsers;
+showRows(users);
+
+document.querySelector('#btnAdd input').addEventListener('click', showAddUserForm);
 
 
 function showRows(users) {
@@ -39,7 +82,7 @@ function showUserRow(user) {
             type: 'button',
             value: 'Edit',
             'data-type': 'edit',
-        }, {click:editUserInformation});
+        }, {click: editUserInformation});
 
     createElement(
         'input',
@@ -61,11 +104,14 @@ function showUserRow(user) {
             'data-type': 'view'
         }, {click: showUserCard})
 }
-function editUserInformation(event){
-   const userId = getUserId(event);
-   const user = getUserById(userId);
-   showAddUserForm(user);
+
+function editUserInformation(event) {
+    const userId = getUserId(event);
+    const chosenUser = getUserById(userId);
+    showAddUserForm(chosenUser)
+
 }
+
 function getUserById(userId) {
     for (let user of users) {
         if (user.id == userId) {
@@ -73,53 +119,89 @@ function getUserById(userId) {
         }
     }
 }
-function showAddUserForm(user) {
+
+function showAddUserForm(chosenUser) {
     const parentSelector = '#form form';
     const existingForm = document.querySelector(`#firstInput`);
 
     if (!existingForm) {
-        createElement('input', parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login', id: 'firstInput',value:user.login || ''});
-        createElement('input', parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name',value:user.name || ''});
-        createElement('input', parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name',value:user.lastName ||''});
-        createElement('input', parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email',value:user.email||''});
+        createElement('input', parentSelector, '', {
+            name: 'login',
+            type: 'text',
+            placeholder: 'Enter login',
+            id: 'firstInput',
+            value: chosenUser.login || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'name',
+            type: 'text',
+            placeholder: 'Enter name',
+            value: chosenUser.name || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'lastName',
+            type: 'text',
+            placeholder: 'Enter last name',
+            value: chosenUser.lastName || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'email',
+            type: 'text',
+            placeholder: 'Enter email',
+            value: chosenUser.email || ''
+        });
 
-        createElement('input', parentSelector, '', {type: "button", value: 'Save'}, {click: handleSaveUser});
+        createElement('input', parentSelector, '', {
+            type: "button",
+            value: 'Save'
+        }, {click: () => handleSaveUser(chosenUser)});
 
     }
-
+}
+function updateUsersList() {
+    const userList = document.querySelector('#users');
+    userList.innerHTML = '';
+    for (let user of users) {
+        showUserRow(user)
+    }
 }
 
-function handleSaveUser() {
+function handleSaveUser(chosenUser) {
     const formElements = document.forms[0].elements;
-
-
     const login = formElements.login.value;
     const name = formElements.name.value;
     const lastName = formElements.lastName.value;
     const email = formElements.email.value;
-    const randomId = Date.now().toString().slice(-2);
 
+    if (chosenUser.id && chosenUser) {
+        chosenUser.login = login;
+        chosenUser.name = name;
+        chosenUser.lastName = lastName;
+        chosenUser.email = email
+        updateStorage();
+        cleanElement('#form form');
+        updateUsersList();
 
-    const user = {
-
-        id:randomId,   // id: this.id = users.length+1 получались дубли когда удалял элемент из середины следующий добавленый дублировал предыдущий.
-        login,
-        name,
-        lastName,
-        email,
-
-    }
-
-
-    const isValid = validate(user);
-    if (!(isValid.login && isValid.name && isValid.lastName && isValid.email)) {
-        showError(isValid)
     } else {
-        saveUser(user)
-        cleanElement('#form form')
+        const randomId = Date.now().toString().slice(-2);
+        const user = {
+            id: randomId,
+            login,
+            name,
+            lastName,
+            email,
+        };
 
+        const isValid = validate(user);
+        if (!(isValid.login && isValid.name && isValid.lastName && isValid.email)) {
+            showError(isValid);
+        } else {
+            saveUser(user);
+            cleanElement('#form form');
+        }
     }
 }
+
 
 function validate(user) {
     return {
@@ -147,9 +229,12 @@ function handleDeleteUser(event) {
 }
 
 function confirmation(userId) {
-    let confirmationBlock =document.getElementById('confirmationBlock');
+    let confirmationBlock = document.getElementById('confirmationBlock');
     if (!confirmationBlock) {
-        confirmationBlock = createElement('div', `div[data-user-id="${userId}"]`, `Are you sure you want to delete this user?`, {className: 'confirmation-block',id:'confirmationBlock'});
+        confirmationBlock = createElement('div', `div[data-user-id="${userId}"]`, `Are you sure you want to delete this user?`, {
+            className: 'confirmation-block',
+            id: 'confirmationBlock'
+        });
         createElement('input', confirmationBlock, '', {type: 'button', value: 'YES'}, {
             click: () => {
                 removeElement(confirmationBlock);
