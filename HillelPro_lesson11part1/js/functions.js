@@ -5,6 +5,12 @@ let showCategories = () => {
     }
     myOrders()
 }
+function deleteOrder(delBtn,orderLi){
+    const orderToDelete = delBtn.getAttribute('data-order-index');
+    orders.splice(orderToDelete, 1);
+    localStorage.setItem('userOrder', JSON.stringify(orders));
+    orderLi.remove();
+}
 
 function myOrders() {
     const leftBlock = document.getElementById('left');
@@ -22,10 +28,7 @@ function myOrders() {
                     showOrderCard(order)
                     }})
                 const delBtn = createElement('button', orderLi, 'x', {type: 'button', 'data-order-index': index},{click:()=>{
-                        const orderToDelete = delBtn.getAttribute('data-order-index');
-                        orders.splice(orderToDelete, 1);
-                        localStorage.setItem('userOrder', JSON.stringify(orders));
-                        orderLi.remove();
+                        deleteOrder(delBtn,orderLi)
                     }})
             })
             createElement('button', '#left', 'back to categories', {id: 'backBtn', type: 'button'}, {
