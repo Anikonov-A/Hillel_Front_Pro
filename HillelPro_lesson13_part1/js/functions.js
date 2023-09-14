@@ -2,17 +2,14 @@
 //
 // Виводиться список користувачів із кнопками “Edit”, “Remove”, “View” біля кожного користувача (use data-id attributes або event delegation) //done
 // список користувачів отримувати з js-файлу (масив об'єктів / використовувати функції-конструктори – за бажанням) //done
-//
 // При натисканні на кнопку “View” відкриваються дані користувача у блоці під списком //done
-// При натисканні на кнопку “Edit” з'являється можливість редагувати дані в блоці під списком. Дані зберігаються при натисканні на кнопку “Save” та оновлюють дані у списку
+// При натисканні на кнопку “Edit” з'являється можливість редагувати дані в блоці під списком. Дані зберігаються при натисканні на кнопку “Save” та оновлюють дані у списку//done
 // При натисканні на кнопку “Remove” користувач видаляється зі списку//done
 // Обов'язково підтвердження видалення (для уникнення видалення помилково)//done
 // Реалізувати можливість додавання нових користувачів//done
-// Бажано перевикористовувати форму редагування
+// Бажано перевикористовувати форму редагування//done
 // При додаванні користувач з'являється у списку//done
 // Після перезавантаження сторінки всі зміни повинні зберігатись (використовувати localStorage)//done
-//
-
 
 
 function showRows(users) {
@@ -20,8 +17,6 @@ function showRows(users) {
         showUserRow(user)
     }
 }
-
-//tagName,parentSelector,content,attributes,handlers
 function showUserRow(user) {
     const container = createElement('div', '#users', '', {'data-user-id': user.id});//container
 
@@ -31,35 +26,9 @@ function showUserRow(user) {
 
     const actionsElement = createElement('div', container, '', {className: "actions", 'data-id': user.id});
 
-    createElement(
-        'input',
-        actionsElement,
-        '',
-        {
-            type: 'button',
-            value: 'Edit',
-            'data-type': 'edit',
-        }, {click: editUserInformation});
-
-    createElement(
-        'input',
-        actionsElement,
-        '',
-        {
-            type: 'button',
-            value: 'Remove',
-            'data-type': 'remove',
-
-        }, {click: handleDeleteUser});
-
-    createElement('input',
-        actionsElement,
-        '',
-        {
-            type: 'button',
-            value: 'View',
-            'data-type': 'view'
-        }, {click: showUserCard})
+    createElement('input', actionsElement, '', {type: 'button', value: 'Edit', 'data-type': 'edit',}, {click: editUserInformation});
+    createElement('input', actionsElement, '', {type: 'button', value: 'Remove', 'data-type': 'remove',}, {click: handleDeleteUser});
+    createElement('input', actionsElement, '', {type: 'button', value: 'View', 'data-type': 'view'}, {click: showUserCard})
 }
 
 function editUserInformation(event) {
@@ -82,37 +51,12 @@ function showAddUserForm(chosenUser) {
     const existingForm = document.querySelector(`#firstInput`);
 
     if (!existingForm) {
-        createElement('input', parentSelector, '', {
-            name: 'login',
-            type: 'text',
-            placeholder: 'Enter login',
-            id: 'firstInput',
-            value: chosenUser.login || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'name',
-            type: 'text',
-            placeholder: 'Enter name',
-            value: chosenUser.name || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'lastName',
-            type: 'text',
-            placeholder: 'Enter last name',
-            value: chosenUser.lastName || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'email',
-            type: 'text',
-            placeholder: 'Enter email',
-            value: chosenUser.email || ''
-        });
+        createElement('input', parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login', id: 'firstInput', value: chosenUser.login || ''});
+        createElement('input', parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name', value: chosenUser.name || ''});
+        createElement('input', parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name', value: chosenUser.lastName || ''});
+        createElement('input', parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email', value: chosenUser.email || ''});
 
-        createElement('input', parentSelector, '', {
-            type: "button",
-            value: 'Save'
-        }, {click: () => handleSaveUser(chosenUser)});
-
+        createElement('input', parentSelector, '', {type: "button", value: 'Save'}, {click: () => handleSaveUser(chosenUser)});
     }
 }
 function updateUsersList() {

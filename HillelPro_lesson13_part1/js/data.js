@@ -1,13 +1,13 @@
 const defaultUsers = [
     {
-        id:01,
+        id:1,
         login:'admin',
         name:'Admin',
         lastName:'Admin',
         email:'',
     },
     {
-        id:02,
+        id: 2,
         login:'user',
         name:'User',
         lastName:'User',
