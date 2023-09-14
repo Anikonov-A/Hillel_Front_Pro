@@ -1,227 +1,85 @@
 let showCategories = () => {
     for (let categoryKey in categories) {
         const category = categories[categoryKey];
-
-        let element = document.createElement('div');
-        element.textContent = category.name;
-
-        const parentElement = document.getElementById('left');
-        element.setAttribute('data-category', categoryKey);
-        parentElement.appendChild(element);
+        createElement('div', '#left', category.name, {'data-category': categoryKey})
     }
     myOrders()
 }
-
-
-let orders = [] ;
-
 
 function myOrders() {
     const leftBlock = document.getElementById('left');
     const centerBlock = document.getElementById('center');
     const rightBlock = document.getElementById('right');
-
-    const myOrders = document.createElement('button');
-    const orderUl = document.createElement('ul');
-    const orderLi = document.createElement('li');
-
-    myOrders.setAttribute('type', 'button')
-    myOrders.id = 'orderBtn';
-    myOrders.textContent = 'Order btn';
-
-    // const rightBlock = document.getElementById('left');
-    const backBtn = document.createElement('button');
-    backBtn.id = 'backBtn';
-    backBtn.setAttribute('type', 'button');
-    backBtn.textContent = 'Back to categories';
-
-    leftBlock.appendChild(myOrders);
-
-    myOrders.addEventListener('click', () => {
-        leftBlock.innerHTML = '';
-        rightBlock.innerHTML = '';
-        centerBlock.innerHTML='';
-
-        centerBlock.appendChild(orderUl);
-        leftBlock.appendChild(backBtn);
-        backBtn.addEventListener('click', () => {
+    createElement(`button`, '#left', `You're order`, {type: 'button', id: 'orderBtn'}, {
+        click: () => {
             leftBlock.innerHTML = '';
-            centerBlock.innerHTML= '';
-            showCategories()
-        });
-
-        let order = JSON.parse(localStorage.getItem('userOrder')) || [];
-        for (let i = 0; i < order.length; i++) {
-            const orderParse = JSON.parse(order[i]);
-            const btn = document.createElement('button');
-            btn.setAttribute('type', 'button');
-            btn.textContent = 'x';
-
-            const orderLi = document.createElement('li');
-            orderLi.textContent = `Name: ${orderParse.chosenProduct},Total: ${orderParse.sumPrice}$,Time: ${orderParse.date}`;
-            const description = document.createElement('div')
-
-            btn.setAttribute('data-order-index', i);
-            orderUl.appendChild(orderLi)
-            orderLi.appendChild(btn)
-            btn.addEventListener('click',()=>{
-                const orderToDelete = btn.getAttribute('data-order-index');
-                orders.splice(orderToDelete, 1);
-                localStorage.setItem('userOrder', JSON.stringify(orders));
-                orderLi.remove();
-                rightBlock.innerHTML='';
-                // description.classList.add('hidden')
+            rightBlock.innerHTML = '';
+            centerBlock.innerHTML = '';
+            createElement('ul', '#center', '', {id: 'centerUl'});
+            orders.forEach((order, index) => {
+                let userObj = JSON.parse(localStorage.getItem('userOrder')) || []
+                const orderLi = createElement('li', '#centerUl', `Name: ${order.product},Total: ${order.sumPrice}$,Time: ${order.date}`,{}, {click:()=>{
+                    showOrderCard(order)
+                    }})
+                const delBtn = createElement('button', orderLi, 'x', {type: 'button', 'data-order-index': index},{click:()=>{
+                        const orderToDelete = delBtn.getAttribute('data-order-index');
+                        orders.splice(orderToDelete, 1);
+                        localStorage.setItem('userOrder', JSON.stringify(orders));
+                        orderLi.remove();
+                    }})
             })
-            //create el for card
-            const orderInfoCard = document.createElement('div')
-            let orderObj = {
-                fullName:orderParse.name,
-                selectedCityName:orderParse.city,
-                postOfficeNumber:orderParse.post,
-                selectedPaymentsName:orderParse.typeOfPayment,
-                cardNumber:orderParse.card,
-                numberOfProducts:orderParse.sumPrice,
-                textAreaValue:orderParse.comment,
-                chosenProduct:orderParse.chosenProduct,
-                orderInfoCard,
-                //add new element here
-
-            }
-
-            orderLi.addEventListener('click', () => {
-                rightBlock.innerHTML = '';
-                showOrderCard(orderObj)
-
-                // rightBlock.appendChild(description)
-                // description.innerText = `Order info:
-                //                         Name: ${orderParse.name}
-                //                         City: ${orderParse.city}
-                //                         Post office Number: ${orderParse.post}
-                //                         Pay method: ${orderParse.typeOfPayment}`;
-                // if (orderParse.typeOfPayment === "card" || orderParse.card) {
-                //     description.innerText += `Card number: ${orderParse.card}`;
-                // }
-                // description.innerText += `
-                //                         Product: ${orderParse.chosenProduct}
-                //                         Total Price: ${orderParse.sumPrice}
-                //                         Comment to order: ${orderParse.comment}
-                //                         Date: ${orderParse.date}`;
-
-
-            });
-
+            createElement('button', '#left', 'back to categories', {id: 'backBtn', type: 'button'}, {
+                click: () => {
+                    leftBlock.innerHTML = '';
+                    centerBlock.innerHTML = '';
+                    showCategories();
+                }
+            })
         }
     })
 }
-function showOrderCard(orderData) {
-    const {
-        fullName,
-        selectedCityName,
-        postOfficeNumber,
-        selectedPaymentsName,
-        cardNumber,
-        numberOfProducts,
-        textAreaValue,
-        chosenProduct,
-        orderInfoCard,
-        myForm,
-
-    } = orderData;
-    const orderContent = document.createElement('div');
-    orderContent.setAttribute("id", 'oContent');
-    let sumPrice = chosenProduct.price * numberOfProducts;
-    const date = new Date().toLocaleTimeString();
-    // const userOrder = JSON.stringify(chosenProduct);
-
-    const div = document.createElement('div');
-    div.setAttribute('id','popUpBlock')
-    orderContent.appendChild(div)
-    orderContent.innerHTML = `
-                <h3>Order info: </h3>
-                <p>Name: ${fullName}</p>
-                <p>City: ${selectedCityName}</p>
-                <p>Post office Number: ${postOfficeNumber}</p>
-                <p>Pay method: ${selectedPaymentsName}</p>`;
-    if (selectedPaymentsName === "card" || cardNumber) {
-        orderContent.innerHTML += `<p>Card number: ${cardNumber}</p>`;
-    }
-    orderContent.innerHTML += `
-                <p>Product: ${chosenProduct.name}</p>     
-                <p>Number of products: ${numberOfProducts}</p>
-                <p>Comment to order: ${textAreaValue}</p>`;
-//add sumPrice in <p>
-    orderInfoCard.innerHTML = '';
-    orderInfoCard.appendChild(orderContent);
-    orderInfoCard.classList.add('visible-card');
-    const parentEl = document.getElementById('popUpBlock')
-    parentEl.appendChild(orderInfoCard)
-    myForm.reset();
-    myForm.style.display = 'none';
-    let userObj = {
-        name:fullName,
-        city:selectedCityName,
-        post:postOfficeNumber,
-        typeOfPayment:selectedPaymentsName,
-        card:cardNumber,
-        numberOfProducts:numberOfProducts,
-        comment:textAreaValue,
-        chosenProduct:chosenProduct.name,
-        sumPrice:sumPrice,
-        date:date,
-    }
-    const userObject = JSON.stringify(userObj)
-
-    orders.push(userObject);
-    localStorage.setItem("userOrder",JSON.stringify(orders));
-}
-
 
 function addToLocalStorage(order) {
-    const orders = JSON.parse(localStorage.getItem('userOrder')) || [];
     orders.push(order);
     localStorage.setItem('userOrder', JSON.stringify(orders));
 }
-
-
-
 let showProducts = (products, category) => {
     const parentElement = document.getElementById('center');
     parentElement.innerHTML = '';
-
     for (let product of products) {
-        let element = document.createElement('div');
-        element.textContent = `${product.name} $${product.price}`;
-        element.setAttribute('data-product', product.id)
-        element.setAttribute('data-category', category)
-        parentElement.appendChild(element)
+        createElement('div',
+            '#center',
+            `${product.name} $${product.price}`,
+            {
+                'data-product': product.id,
+                'data-category': category
+            },
+            {})
     }
 }
 let showDescription = (product) => {
-    const buyBtn = document.createElement('button');
     const parentElement = document.getElementById('right');
     parentElement.innerHTML = '';
-
-    let element = document.createElement('div');
-    element.innerHTML = `Product name: ${product.name} <br>
-                         Product description : ${product.description} <br>
+    const element = createElement('div', '#right', '', '', {})
+    element.textContent = `Product name: ${product.name}
+                         Product description : ${product.description}
                          Price : $${product.price}`;
-    parentElement.appendChild(element);
+    createElement('button', parentElement, `Buy me`, {id: 'buyMeBtn'}, {
+        click: () => {
+            document.getElementById(`center`).innerHTML = ``;
+            document.getElementById(`right`).innerHTML = ``;
+            buy(product);
+        }
+    });
 
-    buyBtn.textContent = `Buy me`;
-    buyBtn.setAttribute('id', 'buyMeBtn')
-    parentElement.appendChild(buyBtn);
-    buy(buyBtn, parentElement, product);//передаем выбраный продукт далее
 
 }
 let getValueFromObjectToSelect = (item, select) => {
     const valueArr = [];
     for (let keys in item) {
-        const newOption = document.createElement('option');
-        newOption.value = keys;
-        newOption.textContent = item[keys];
-        select.appendChild(newOption);
+        createElement('option', select, `${item[keys]}`, {value: keys});
     }
-    return valueArr
+    return valueArr;
 }
 
 let showError = (inputField, errorMessage) => {
@@ -268,162 +126,122 @@ let validationProductsNum = (value, input, errMsg) => {
     }
     return value
 }
-
-
-let buy = (buyBtn, parentElement, product) => {
+function hideDisplayCardField(paymentSelect, fieldForCard) {
+    const selectedPaymentMethod = paymentSelect.value;
+    if (selectedPaymentMethod === "card") {
+        fieldForCard.classList.remove('hidden')
+    } else {
+        fieldForCard.classList.add('hidden')
+    }
+}
+let buy = (product) => {
     const chosenProduct = product;
-    const centerField = document.getElementById('center');
-    const body = document.getElementById('body');
-    const element = document.createElement('div');
-
-    element.setAttribute('id', 'popUpBlock')
+    createForm(chosenProduct);
+}
+function createForm(chosenProduct) {
+    const popUpCard = createElement('div', '#body', '', {id: 'popUpBlock'})
     //Create form
-    const myForm = document.createElement('form');
-    myForm.setAttribute('id', 'myForm')
+    const myForm = createElement('form', popUpCard, '', {id: 'myForm'})
     //Name field
-    const nameLabel = document.createElement('label');
-    nameLabel.textContent = " Enter your full name below: ";
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.name = 'name';
+    createElement('label', '#myForm', `Enter your full name below: `, {id: 'nameLabel'});
+    const nameInput = createElement('input', '#nameLabel', '', {type: 'text', name: 'name'});
     //Cities field
-    const citiesLabel = document.createElement('label');
-    citiesLabel.textContent = "Chose your city for delivery :";
-    const citySelect = document.createElement('select');
-    citySelect.name = 'cities';
+    createElement('label', '#myForm', `Chose your city for delivery :`, {id: 'citiesLabel'});
+    const citySelect = createElement('select', '#citiesLabel', '', {name: 'cities'});
     getValueFromObjectToSelect(cities, citySelect);
     //Post field
-    const postLabel = document.createElement('label');
-    postLabel.textContent = 'Enter your post office number: ';
-    const postInput = document.createElement('input');
-    postInput.type = 'text';
-    postInput.name = 'post';
+    createElement('label', '#myForm', `Enter your post office number: `, {id: 'postLabel'});
+    const postInput = createElement(`input`, '#postLabel', '', {type: 'text', name: 'post'});
     //Payment method
-    const paymentLabel = document.createElement('label');
-    paymentLabel.textContent = 'Chose your payment method: '
-    const paymentSelect = document.createElement('select');
-    paymentSelect.style.marginBottom = '5px'
-    paymentSelect.name = 'payments';
+    createElement('label', '#myForm', `Chose your payment method: `, {id: `payLabel`});
+    const paymentSelect = createElement('select', `#payLabel`, '', {name: 'payments'}, {
+        "change": () => {
+            hideDisplayCardField(paymentSelect, fieldForCard)
+        }
+    });
     getValueFromObjectToSelect(payments, paymentSelect);
 
-    const fieldForCard = document.createElement('input');
-    fieldForCard.type = 'text';
-    fieldForCard.name = 'cardNumber';
-    fieldForCard.classList.add('hidden');
-
-    paymentSelect.addEventListener('change', () => {
-        const selectedPaymentMethod = paymentSelect.value;
-        if (selectedPaymentMethod === "card") {
-            fieldForCard.classList.remove('hidden')
-        } else {
-            fieldForCard.classList.add('hidden')
-        }
-
+    const fieldForCard = createElement('input', `#payLabel`, '', {
+        type: 'text',
+        name: 'cardNumber',
+        className: 'hidden'
     });
-
-
     //Product counter
-    const productsNumberLabel = document.createElement('label');
-    productsNumberLabel.textContent = 'How many products you wanna buy?';
-    const productsInput = document.createElement('input');
-    productsInput.type = 'number';
-    productsInput.name = 'numberOfProducts';
+    createElement(`label`, `#myForm`, `How many products you wanna buy?`, {id: 'productLabel'});
+    const productInput = createElement(`input`, `#productLabel`, '', {type: 'number', name: 'numberOfProducts'});
     //Comment field
-    const commentAreaLabel = document.createElement('label');
-    commentAreaLabel.textContent = 'Add your comment below';
-    const commentArea = document.createElement('textarea');
-    commentArea.name = 'textarea';
-    commentArea.style.resize = 'none';
+    createElement(`label`, `#myForm`, `Add your comment below`, {id: 'commentLabel'});
+    const textArea = createElement(`textarea`, `#commentLabel`, ``, {name: `textarea`, id: `commentArea`});
     //Submit button
-    const submitBtn = document.createElement('button');
-    submitBtn.name = 'submitBtn';
-    submitBtn.textContent = 'BUY'
-    submitBtn.type = 'button';
-
-
-    buyBtn.addEventListener('click', () => {
-
-        parentElement.innerHTML = '';
-        centerField.innerHTML = '';
-        body.appendChild(element);
-
-        element.appendChild(myForm);
-
-        myForm.appendChild(nameLabel);
-        myForm.appendChild(input);
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(citiesLabel)
-        myForm.appendChild(citySelect)
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(postLabel);
-        myForm.appendChild(postInput);
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(paymentLabel);
-        myForm.appendChild(paymentSelect);
-        myForm.appendChild(fieldForCard);
-
-
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(productsNumberLabel);
-        myForm.appendChild(productsInput);
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(commentAreaLabel);
-        myForm.appendChild(commentArea);
-        myForm.appendChild(document.createElement('br'));
-
-        myForm.appendChild(submitBtn);
-
-        submitBtn.addEventListener('click', () => {
-
-            //city value
-            const selectedCityValue = citySelect.value;
-            const selectedCityName = cities[selectedCityValue];
-
-            const selectedPayments = paymentSelect.value;
-            const selectedPaymentsName = payments[selectedPayments];
-
-            const fullName = input.value
-            //post office
-            const postOfficeNumber = postInput.value
-
-            const cardNumber = fieldForCard.value;
-            const numberOfProducts = productsInput.value;
-
-            const textAreaValue = commentArea.value;
-
-            const orderInfoCard = document.createElement('div');
-            orderInfoCard.setAttribute('id', 'order');
-            // orderInfoCard.style.display = 'none';
-            orderInfoCard.classList.add('hidden')
-            const validationFunction = () => {
-                const validName = fullNameValidation(fullName, input, 'Enter correct name');
-                const validOffice = postOfficeValidation(postOfficeNumber, postInput, `Enter valid post number bigger than 0`);
-                const validPayment = validatePayment(selectedPayments, selectedPaymentsName, cardNumber, fieldForCard, `Enter valid card number`);
-                const validProducts = validationProductsNum(numberOfProducts, productsInput, `Enter correct number`)
-                return validName && validOffice && validPayment && validProducts;
-            }
+    createElement(`button`, `#myForm`, `BUY`, {name: `submitBtn`, type: `button`}, {
+        click: () => {
             deleteErrors();
-            if (validationFunction()) {
-                const orderData = {
-                    fullName,
-                    selectedCityName,
-                    postOfficeNumber,
-                    selectedPaymentsName,
-                    cardNumber,
-                    numberOfProducts,
-                    textAreaValue,
-                    chosenProduct,
-                    orderInfoCard,
-                    myForm,//?
-                }
-                showOrderCard(orderData);
+            const valueObj = getValueFromCard(nameInput, citySelect, postInput, paymentSelect, fieldForCard, productInput, textArea,myForm);
+            if (validationFunction(valueObj)) {
+                showOrderCard(valueObj,chosenProduct)
             }
-        })
+        }
+    });
+}
 
-    })
+const validationFunction = (valueObj) => {
+    const validName = fullNameValidation(valueObj.fullName, valueObj.nameInput, 'Enter correct name');
+    const validOffice = postOfficeValidation(valueObj.postOfficeNumber, valueObj.postInput, `Enter valid post number bigger than 0`);
+    const validPayment = validatePayment(valueObj.selectedPayments, valueObj.selectedPaymentsName, valueObj.cardNumber, valueObj.cardInput, `Enter valid card number`);
+    const validProducts = validationProductsNum(valueObj.numberOfProducts, valueObj.productsInput, `Enter correct number`)
+    return validName && validOffice && validPayment && validProducts;
+}
+
+function getValueFromCard(nameInput, citySelect, postInput, paymentSelect, fieldForCard, productInput, textArea,myForm) {
+    const valueObj = {
+        cityValue: citySelect.value,
+        selectedCityName: cities[citySelect.value],
+        selectedPayments: paymentSelect.value,
+        selectedPaymentsName: payments[paymentSelect.value],
+        fullName: nameInput.value,
+        nameInput: nameInput,
+        postOfficeNumber: postInput.value,
+        postInput: postInput,
+        cardNumber: fieldForCard.value,
+        cardInput: fieldForCard,
+        numberOfProducts: productInput.value,
+        productsInput: productInput,
+        textAreaValue: textArea.value,
+        myForm,
+    }
+    return valueObj
+}
+
+function showOrderCard(valueObj,chosenProduct) {
+    const orderInfoCard = createElement(`div`,'#body','',{id:'order',className:'hidden'});
+    const orderContent = createElement(`div`,orderInfoCard,'',{id:'oContent'});
+    if (!(valueObj.sumPrice || valueObj.date || valueObj.date)){
+        valueObj.sumPrice = chosenProduct.price * valueObj.numberOfProducts ;
+        valueObj.date = new Date().toLocaleTimeString() ;
+        valueObj.product = chosenProduct.name ;
+    }
+    const div = document.createElement('div');
+    div.setAttribute('id', 'popUpBlock')
+    orderContent.appendChild(div)
+    orderContent.innerHTML = `
+                <h3>Order info: </h3>
+                <p>Name: ${valueObj.fullName}</p>
+                <p>City: ${valueObj.selectedCityName}</p>
+                <p>Post office Number: ${valueObj.postOfficeNumber}</p>
+                <p>Pay method: ${valueObj.selectedPaymentsName}</p>`;
+    if (valueObj.selectedPaymentsName === "card" || valueObj.cardNumber) {
+        orderContent.innerHTML += `<p>Card number: ${valueObj.cardNumber}</p>`;
+    }
+    orderContent.innerHTML += `
+                <p>Product: ${valueObj.product}</p>     
+                <p>Number of products: ${valueObj.numberOfProducts}</p>
+                <p>Comment to order: ${valueObj.textAreaValue}</p>`;
+    orderInfoCard.innerHTML = '';
+    orderInfoCard.appendChild(orderContent);
+    orderInfoCard.classList.add('visible-card');
+    const parentEl = document.getElementById('popUpBlock')
+    parentEl.appendChild(orderInfoCard)
+    valueObj.myForm.reset();
+    valueObj.myForm.style.display = 'none';
+    addToLocalStorage(valueObj);
 }

@@ -63,14 +63,13 @@ const categories = {
     ],
   }
 };
-
 let cities = {
   dn: 'Dnipro',
   kv: 'Kiev',
   od: 'Odessa'
-}
-
+};
 let payments= {
   cash:"Cash",
   card:"Card",
-}
+};
+let orders = [] ;

@@ -14,28 +14,22 @@
     height: 200px;
     margin-bottom: 25px;
     /*padding: 15px 15px;*/
-
 }
-/*#main > div:not(:last-of-type){*/
 
-/*}*/
-/*#main >div>div{*/
-/*    border: 1px solid black;*/
-/*    border-radius: 8px;*/
-/*    padding: 2px 4px;*/
-/*    margin-bottom: 10px;*/
-/*}*/
-/*#main>div>button{*/
-/*    display: block;*/
-/*    margin: auto;*/
+#payLabel select{
+    margin-bottom: 5px;
+}
 
-/*}*/
 #myForm{
     margin: auto;
     width: 300px;
     border: 1px solid black;
     border-radius: 16px;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+#myForm label{
     display: flex;
     flex-direction: column;
 }
@@ -67,5 +61,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-
+}
+#commentArea{
+    resize: none;
+    margin-bottom: 15px;
 }
