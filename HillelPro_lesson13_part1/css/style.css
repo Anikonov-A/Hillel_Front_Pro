@@ -23,7 +23,7 @@
     width: 300px;
 }
 .error{
-    background: red;
+    background: rgba(255, 0, 0, 0.5);
 }
 .user-item{
     display: flex;

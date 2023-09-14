@@ -17,6 +17,7 @@ function showRows(users) {
         showUserRow(user)
     }
 }
+
 function showUserRow(user) {
     const container = createElement('div', '#users', '', {'data-user-id': user.id});//container
 
@@ -26,9 +27,21 @@ function showUserRow(user) {
 
     const actionsElement = createElement('div', container, '', {className: "actions", 'data-id': user.id});
 
-    createElement('input', actionsElement, '', {type: 'button', value: 'Edit', 'data-type': 'edit',}, {click: editUserInformation});
-    createElement('input', actionsElement, '', {type: 'button', value: 'Remove', 'data-type': 'remove',}, {click: handleDeleteUser});
-    createElement('input', actionsElement, '', {type: 'button', value: 'View', 'data-type': 'view'}, {click: showUserCard})
+    createElement('input', actionsElement, '', {
+        type: 'button',
+        value: 'Edit',
+        'data-type': 'edit',
+    }, {click: editUserInformation});
+    createElement('input', actionsElement, '', {
+        type: 'button',
+        value: 'Remove',
+        'data-type': 'remove',
+    }, {click: handleDeleteUser});
+    createElement('input', actionsElement, '', {
+        type: 'button',
+        value: 'View',
+        'data-type': 'view'
+    }, {click: showUserCard})
 }
 
 function editUserInformation(event) {
@@ -51,14 +64,39 @@ function showAddUserForm(chosenUser) {
     const existingForm = document.querySelector(`#firstInput`);
 
     if (!existingForm) {
-        createElement('input', parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login', id: 'firstInput', value: chosenUser.login || ''});
-        createElement('input', parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name', value: chosenUser.name || ''});
-        createElement('input', parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name', value: chosenUser.lastName || ''});
-        createElement('input', parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email', value: chosenUser.email || ''});
+        createElement('input', parentSelector, '', {
+            name: 'login',
+            type: 'text',
+            placeholder: 'Enter login',
+            id: 'firstInput',
+            value: chosenUser.login || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'name',
+            type: 'text',
+            placeholder: 'Enter name',
+            value: chosenUser.name || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'lastName',
+            type: 'text',
+            placeholder: 'Enter last name',
+            value: chosenUser.lastName || ''
+        });
+        createElement('input', parentSelector, '', {
+            name: 'email',
+            type: 'text',
+            placeholder: 'Enter email',
+            value: chosenUser.email || ''
+        });
 
-        createElement('input', parentSelector, '', {type: "button", value: 'Save'}, {click: () => handleSaveUser(chosenUser)});
+        createElement('input', parentSelector, '', {
+            type: "button",
+            value: 'Save'
+        }, {click: () => handleSaveUser(chosenUser)});
     }
 }
+
 function updateUsersList() {
     const userList = document.querySelector('#users');
     userList.innerHTML = '';
@@ -74,14 +112,19 @@ function handleSaveUser(chosenUser) {
     const lastName = formElements.lastName.value;
     const email = formElements.email.value;
 
-    if (chosenUser.id && chosenUser) {
+    if (chosenUser && chosenUser.id) {
         chosenUser.login = login;
         chosenUser.name = name;
         chosenUser.lastName = lastName;
-        chosenUser.email = email
-        updateStorage();
-        cleanElement('#form form');
-        updateUsersList();
+        chosenUser.email = email;
+        const editValid = validate(chosenUser)
+        if (!(editValid.login && editValid.name && editValid.lastName && editValid.email)){
+            showError(editValid)
+        }else {
+            updateStorage();
+            cleanElement('#form form');
+            updateUsersList();
+        }
 
     } else {
         const randomId = Date.now().toString().slice(-2);
@@ -170,11 +213,19 @@ function cleanElement(element) {
 }
 
 function showError(isValid) {
+    const errors ={
+        login:`please enter the correct login`,
+        name:`please enter the correct name`,
+        lastName:`please enter the correct lastName`,
+        email:`please enter the correct email`,
+    }
     for (let field in isValid) {
         const inputElement = document.querySelector(`[name='${field}']`)
         const fieldValue = isValid[field];
+
         if (!fieldValue) {
-            addErrorInInput(inputElement, 'error', `please enter the correct value`)
+            const errorMessage = errors[field]
+            addErrorInInput(inputElement, 'error', `${errorMessage}`)
         } else {
             deleteErrorInInput(inputElement, 'error')
         }
