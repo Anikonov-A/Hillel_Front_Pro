@@ -11,6 +11,7 @@
 // При додаванні користувач з'являється у списку//done
 // Після перезавантаження сторінки всі зміни повинні зберігатись (використовувати localStorage)//done
 
+
 function showRows(users) {
     for (let user of users) {
         showUserRow(user)
@@ -26,21 +27,9 @@ function showUserRow(user) {
 
     const actionsElement = createElement('div', container, '', {className: "actions", 'data-id': user.id});
 
-    createElement('input', actionsElement, '', {
-        type: 'button',
-        value: 'Edit',
-        'data-type': 'edit',
-    }, {click: editUserInformation});
-    createElement('input', actionsElement, '', {
-        type: 'button',
-        value: 'Remove',
-        'data-type': 'remove',
-    }, {click: handleDeleteUser});
-    createElement('input', actionsElement, '', {
-        type: 'button',
-        value: 'View',
-        'data-type': 'view'
-    }, {click: showUserCard})
+    createElement('input', actionsElement, '', {type: 'button', value: 'Edit', 'data-type': 'edit',}, {click: editUserInformation});
+    createElement('input', actionsElement, '', {type: 'button', value: 'Remove', 'data-type': 'remove',}, {click: handleDeleteUser});
+    createElement('input', actionsElement, '', {type: 'button', value: 'View', 'data-type': 'view'}, {click: showUserCard})
 }
 
 function editUserInformation(event) {
@@ -63,36 +52,16 @@ function showAddUserForm(chosenUser) {
     while (myForm.firstChild) {
         myForm.removeChild(myForm.firstChild);
     }
-    createElement('input', parentSelector, '', {
-        name: 'login',
-        type: 'text',
-        placeholder: 'Enter login',
-        id: 'firstInput',
-        value: chosenUser.login || ''
-    });
-    createElement('input', parentSelector, '', {
-        name: 'name',
-        type: 'text',
-        placeholder: 'Enter name',
-        value: chosenUser.name || ''
-    });
-    createElement('input', parentSelector, '', {
-        name: 'lastName',
-        type: 'text',
-        placeholder: 'Enter last name',
-        value: chosenUser.lastName || ''
-    });
-    createElement('input', parentSelector, '', {
-        name: 'email',
-        type: 'text',
-        placeholder: 'Enter email',
-        value: chosenUser.email || ''
-    });
+    createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login', id: 'firstInput', value: chosenUser.login || ''});
+    createElement('input',parentSelector, '', {name:'password',type:'text',placeholder:'Enter password',value: chosenUser.password || ''});
+    createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name', value: chosenUser.name || ''});
+    createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name', value: chosenUser.lastName || ''});
+    createElement('input',parentSelector, '',  {name:'age',type:'text',placeholder:'Enter your age',value:chosenUser.age || ''});
+    createElement('input',parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email', value: chosenUser.email || ''});
+    createElement('input',parentSelector,'',{name:'phone',type:'text',placeholder:'Enter your Phone number',value:chosenUser.phone || ''})
+    createElement('input',parentSelector,'',{name:'card',type:'input',placeholder:`Enter your card`,value:chosenUser.card || ''});
 
-    createElement('input', parentSelector, '', {
-        type: "button",
-        value: 'Save'
-    }, {click: () => handleSaveUser(chosenUser)});
+    createElement('input',parentSelector, '', {type: "button", value: 'Save'}, {click: () => handleSaveUser(chosenUser)});
 
 }
 
@@ -107,17 +76,25 @@ function updateUsersList() {
 function handleSaveUser(chosenUser) {
     const formElements = document.forms[0].elements;
     const login = formElements.login.value;
+    const password = formElements.password.value;
     const name = formElements.name.value;
     const lastName = formElements.lastName.value;
+    const age = formElements.age.value;
     const email = formElements.email.value;
+    const phone = formElements.phone.value;
+    const card = formElements.card.value;
 
     if (chosenUser && chosenUser.id) {
         chosenUser.login = login;
+        chosenUser.password = password
         chosenUser.name = name;
         chosenUser.lastName = lastName;
+        chosenUser.age = age;
         chosenUser.email = email;
+        chosenUser.phone = phone;
+        chosenUser.card = card;
         const editValid = validate(chosenUser)
-        if (!(editValid.login && editValid.name && editValid.lastName && editValid.email)) {
+        if (!(editValid.login && editValid.name && editValid.lastName && editValid.email && editValid.password && editValid.age && editValid.phone && editValid.card)) {
             showError(editValid)
         } else {
             updateStorage();
@@ -130,13 +107,17 @@ function handleSaveUser(chosenUser) {
         const user = {
             id: randomId,
             login,
+            password,
             name,
             lastName,
+            age,
             email,
+            phone,
+            card,
         };
 
         const isValid = validate(user);
-        if (!(isValid.login && isValid.name && isValid.lastName && isValid.email)) {
+        if (!(isValid.login && isValid.name && isValid.lastName && isValid.email && isValid.password && isValid.age && isValid.phone && isValid.card)) {
             showError(isValid);
         } else {
             saveUser(user);
@@ -149,9 +130,13 @@ function handleSaveUser(chosenUser) {
 function validate(user) {
     return {
         login: !(user.login === '' || user.login === ' '),
+        password:false,
         name: !(user.name === '' || user.name === ' ' || !isNaN(user.name)),
         lastName: !(user.lastName === '' || user.lastName === ' ' || !isNaN(user.lastName)),
+        age:false,
         email: !(user.email === '' || user.email.length === 1) && user.email.includes("@"),
+        phone:false,
+        card:false,
     };
 
 }
@@ -215,9 +200,13 @@ function cleanElement(element) {
 function showError(isValid) {
     const errors = {
         login: `please enter the correct login`,
+        password:`please enter the correct password`,
         name: `please enter the correct name`,
         lastName: `please enter the correct lastName`,
+        age:`please enter the correct age`,
         email: `please enter the correct email`,
+        phone:`please enter the correct phone`,
+        card:`please enter the correct card`,
     }
     for (let field in isValid) {
         const inputElement = document.querySelector(`[name='${field}']`)
