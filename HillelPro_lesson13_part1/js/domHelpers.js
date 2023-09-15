@@ -6,7 +6,6 @@ function createElement(tagName, parentElement, content, attributes, handlers) {
         parent = parentElement;
     }
 
-
     const element = document.createElement(tagName);
 
     if (content) {

@@ -11,7 +11,6 @@
 // При додаванні користувач з'являється у списку//done
 // Після перезавантаження сторінки всі зміни повинні зберігатись (використовувати localStorage)//done
 
-
 function showRows(users) {
     for (let user of users) {
         showUserRow(user)
@@ -47,8 +46,7 @@ function showUserRow(user) {
 function editUserInformation(event) {
     const userId = getUserId(event);
     const chosenUser = getUserById(userId);
-    showAddUserForm(chosenUser)
-
+    showAddUserForm(chosenUser);
 }
 
 function getUserById(userId) {
@@ -61,40 +59,41 @@ function getUserById(userId) {
 
 function showAddUserForm(chosenUser) {
     const parentSelector = '#form form';
-    const existingForm = document.querySelector(`#firstInput`);
-
-    if (!existingForm) {
-        createElement('input', parentSelector, '', {
-            name: 'login',
-            type: 'text',
-            placeholder: 'Enter login',
-            id: 'firstInput',
-            value: chosenUser.login || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'name',
-            type: 'text',
-            placeholder: 'Enter name',
-            value: chosenUser.name || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'lastName',
-            type: 'text',
-            placeholder: 'Enter last name',
-            value: chosenUser.lastName || ''
-        });
-        createElement('input', parentSelector, '', {
-            name: 'email',
-            type: 'text',
-            placeholder: 'Enter email',
-            value: chosenUser.email || ''
-        });
-
-        createElement('input', parentSelector, '', {
-            type: "button",
-            value: 'Save'
-        }, {click: () => handleSaveUser(chosenUser)});
+    const myForm = document.querySelector(parentSelector);
+    while (myForm.firstChild) {
+        myForm.removeChild(myForm.firstChild);
     }
+    createElement('input', parentSelector, '', {
+        name: 'login',
+        type: 'text',
+        placeholder: 'Enter login',
+        id: 'firstInput',
+        value: chosenUser.login || ''
+    });
+    createElement('input', parentSelector, '', {
+        name: 'name',
+        type: 'text',
+        placeholder: 'Enter name',
+        value: chosenUser.name || ''
+    });
+    createElement('input', parentSelector, '', {
+        name: 'lastName',
+        type: 'text',
+        placeholder: 'Enter last name',
+        value: chosenUser.lastName || ''
+    });
+    createElement('input', parentSelector, '', {
+        name: 'email',
+        type: 'text',
+        placeholder: 'Enter email',
+        value: chosenUser.email || ''
+    });
+
+    createElement('input', parentSelector, '', {
+        type: "button",
+        value: 'Save'
+    }, {click: () => handleSaveUser(chosenUser)});
+
 }
 
 function updateUsersList() {
@@ -118,9 +117,9 @@ function handleSaveUser(chosenUser) {
         chosenUser.lastName = lastName;
         chosenUser.email = email;
         const editValid = validate(chosenUser)
-        if (!(editValid.login && editValid.name && editValid.lastName && editValid.email)){
+        if (!(editValid.login && editValid.name && editValid.lastName && editValid.email)) {
             showError(editValid)
-        }else {
+        } else {
             updateStorage();
             cleanElement('#form form');
             updateUsersList();
@@ -174,23 +173,24 @@ function handleDeleteUser(event) {
 
 function confirmation(userId) {
     let confirmationBlock = document.getElementById('confirmationBlock');
-    if (!confirmationBlock) {
-        confirmationBlock = createElement('div', `div[data-user-id="${userId}"]`, `Are you sure you want to delete this user?`, {
-            className: 'confirmation-block',
-            id: 'confirmationBlock'
-        });
-        createElement('input', confirmationBlock, '', {type: 'button', value: 'YES'}, {
-            click: () => {
-                removeElement(confirmationBlock);
-                deleteUserById(userId);
-            }
-        })
-        createElement('input', confirmationBlock, '', {type: 'button', value: 'NO'}, {
-            click: () => {
-                removeElement(confirmationBlock);
-            }
-        })
+    if (confirmationBlock) {
+        removeElement(confirmationBlock)
     }
+    confirmationBlock = createElement('div', `div[data-user-id="${userId}"]`, `Are you sure you want to delete this user?`, {
+        className: 'confirmation-block',
+        id: 'confirmationBlock'
+    });
+    createElement('input', confirmationBlock, '', {type: 'button', value: 'YES'}, {
+        click: () => {
+            removeElement(confirmationBlock);
+            deleteUserById(userId);
+        }
+    })
+    createElement('input', confirmationBlock, '', {type: 'button', value: 'NO'}, {
+        click: () => {
+            removeElement(confirmationBlock);
+        }
+    })
 
 }
 
@@ -213,11 +213,11 @@ function cleanElement(element) {
 }
 
 function showError(isValid) {
-    const errors ={
-        login:`please enter the correct login`,
-        name:`please enter the correct name`,
-        lastName:`please enter the correct lastName`,
-        email:`please enter the correct email`,
+    const errors = {
+        login: `please enter the correct login`,
+        name: `please enter the correct name`,
+        lastName: `please enter the correct lastName`,
+        email: `please enter the correct email`,
     }
     for (let field in isValid) {
         const inputElement = document.querySelector(`[name='${field}']`)
