@@ -1,17 +1,3 @@
-// Створити CRUD-додаток (Create, Read, Update, Delete):
-//
-// Виводиться список користувачів із кнопками “Edit”, “Remove”, “View” біля кожного користувача (use data-id attributes або event delegation) //done
-// список користувачів отримувати з js-файлу (масив об'єктів / використовувати функції-конструктори – за бажанням) //done
-// При натисканні на кнопку “View” відкриваються дані користувача у блоці під списком //done
-// При натисканні на кнопку “Edit” з'являється можливість редагувати дані в блоці під списком. Дані зберігаються при натисканні на кнопку “Save” та оновлюють дані у списку//done
-// При натисканні на кнопку “Remove” користувач видаляється зі списку//done
-// Обов'язково підтвердження видалення (для уникнення видалення помилково)//done
-// Реалізувати можливість додавання нових користувачів//done
-// Бажано перевикористовувати форму редагування//done
-// При додаванні користувач з'являється у списку//done
-// Після перезавантаження сторінки всі зміни повинні зберігатись (використовувати localStorage)//done
-
-
 function showRows(users) {
     for (let user of users) {
         showUserRow(user)
@@ -130,22 +116,22 @@ function cardValid(card){
     return /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/g.test(card);//(\d{4})-(\d{4})-(\d{4})-(\d{4})
 }
 function passwordValid(password){
-    return /[0-9A-z]{4,16}/g.test(password);
+    return /[0-9A-z]{4,16}/g.test(password);//+
 }
 function phoneValid(phone){
-    return /^\+380[0-9]{9}$/g.test(phone);
+    return /^\+380[0-9]{9}$/g.test(phone);//+
 }
 function loginValid(login){
     return /^[a-z]{3,}$/gi.test(login); // /^[a-z]{3,}\d+$ letters with numbers in the end
 }
 function nameAndLastNameValid(name){
-    return /^[a-z]{3,}$/gi.test(name);
+    return /^[a-z]{3,}$/gi.test(name);//+
 }
 function emailValid(email){
     return /^\w+@\w+\.[a-z]{2,}$/gi.test(email); // ^[a-z]{3,}[0-9]{1,}@[a-z]{2,}\.[a-z]{2,}$
 }
 function ageValid(age){
-    return /^(1[89]|[2-9]\d|\d{3})$/g.test(age)
+    return /^(1[89]|[2-9]\d|\d{3})$/g.test(age);//+
 }
 
 function validate(user) {
