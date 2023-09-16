@@ -38,14 +38,14 @@ function showAddUserForm(chosenUser) {
     while (myForm.firstChild) {
         myForm.removeChild(myForm.firstChild);
     }
-    createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login', id: 'firstInput', value: chosenUser.login || ''});
-    createElement('input',parentSelector, '', {name:'password',type:'text',placeholder:'Enter password',value: chosenUser.password || ''});
-    createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name', value: chosenUser.name || ''});
-    createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name', value: chosenUser.lastName || ''});
-    createElement('input',parentSelector, '',  {name:'age',type:'text',placeholder:'Enter your age',value:chosenUser.age || ''});
+    createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login min 3 letters', id: 'firstInput', value: chosenUser.login || ''});
+    createElement('input',parentSelector, '', {name:'password',type:'text',placeholder:'Enter password min 4 max 16(letters/digits)',value: chosenUser.password || ''});
+    createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name min 3 letters', value: chosenUser.name || ''});
+    createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name min 3 letters', value: chosenUser.lastName || ''});
+    createElement('input',parentSelector, '',  {name:'age',type:'text',placeholder:'Enter your age,you must be over 18',value:chosenUser.age || ''});
     createElement('input',parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email', value: chosenUser.email || ''});
-    createElement('input',parentSelector,'',{name:'phone',type:'text',placeholder:'Enter your Phone number',value:chosenUser.phone || ''})
-    createElement('input',parentSelector,'',{name:'card',type:'input',placeholder:`Enter your card`,value:chosenUser.card || ''});
+    createElement('input',parentSelector,'',{name:'phone',type:'text',placeholder:'Enter your Phone number starts with +380',value:chosenUser.phone || ''})
+    createElement('input',parentSelector,'',{name:'card',type:'input',placeholder:`Enter your card every 4 digits separated by dash(-) `,value:chosenUser.card || ''});
 
     createElement('input',parentSelector, '', {type: "button", value: 'Save'}, {click: () => handleSaveUser(chosenUser)});
 
@@ -113,7 +113,7 @@ function handleSaveUser(chosenUser) {
 }
 
 function cardValid(card){
-    return /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/g.test(card);//(\d{4})-(\d{4})-(\d{4})-(\d{4})
+    return /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/g.test(card);//(\d{4})\-(\d{4})\-(\d{4})\-(\d{4})
 }
 function passwordValid(password){
     return /[0-9A-z]{4,16}/g.test(password);//+
@@ -128,7 +128,7 @@ function nameAndLastNameValid(name){
     return /^[a-z]{3,}$/gi.test(name);//+
 }
 function emailValid(email){
-    return /^\w+@\w+\.[a-z]{2,}$/gi.test(email); // ^[a-z]{3,}[0-9]{1,}@[a-z]{2,}\.[a-z]{2,}$
+    return /^[a-z0-9_]+@[a-z]+\.[a-z]{2,}$/gi.test(email); // ^[a-z]{3,}[0-9]{1,}@[a-z]{2,}\.[a-z]{2,}$||/\w+@\w\.[a-z]{2,}
 }
 function ageValid(age){
     return /^(1[89]|[2-9]\d|\d{3})$/g.test(age);//+
@@ -271,7 +271,6 @@ function displayInfoFromUser(event, element) {
                                 </ul>
                                `
         }
-
     }
     setTimeout(() => {
         element.remove();
