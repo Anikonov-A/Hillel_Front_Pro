@@ -38,7 +38,7 @@ function showAddUserForm(chosenUser) {
     while (myForm.firstChild) {
         myForm.removeChild(myForm.firstChild);
     }
-    createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login min 3 letters', id: 'firstInput', value: chosenUser.login || ''});
+    createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login min 3 letters can include digits or _ ', id: 'firstInput', value: chosenUser.login || ''});
     createElement('input',parentSelector, '', {name:'password',type:'text',placeholder:'Enter password min 4 max 16(letters/digits)',value: chosenUser.password || ''});
     createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name min 3 letters', value: chosenUser.name || ''});
     createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name min 3 letters', value: chosenUser.lastName || ''});
@@ -122,7 +122,7 @@ function phoneValid(phone){
     return /^\+380[0-9]{9}$/g.test(phone);//+
 }
 function loginValid(login){
-    return /^[a-z]{3,}$/gi.test(login); // /^[a-z]{3,}\d+$ letters with numbers in the end
+    return /^[a-zA-Z0-9_]{3,16}$/g.test(login); // /^[a-z]{3,}\d+$ letters with numbers in the end// ||^[a-z]{3,}$ only letters
 }
 function nameAndLastNameValid(name){
     return /^[a-z]{3,}$/gi.test(name);//+
@@ -206,7 +206,7 @@ function cleanElement(element) {
 
 function showError(isValid) {
     const errors = {
-        login: `add the correct login min 3 letters`,
+        login: `add the correct login min 3 letters can include digits or _ `,
         password:`enter the correct password from 4 to 16 characters (digits/letters)`,
         name: `please enter the correct name min three letters`,
         lastName: `please enter the correct lastName min three letters`,
