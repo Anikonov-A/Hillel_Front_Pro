@@ -126,17 +126,38 @@ function handleSaveUser(chosenUser) {
     }
 }
 
+function cardValid(card){
+    return /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/g.test(card);//(\d{4})-(\d{4})-(\d{4})-(\d{4})
+}
+function passwordValid(password){
+    return /[0-9A-z]{4,16}/g.test(password);
+}
+function phoneValid(phone){
+    return /^\+380[0-9]{9}$/g.test(phone);
+}
+function loginValid(login){
+    return /^[a-z]{3,}$/gi.test(login); // /^[a-z]{3,}\d+$ letters with numbers in the end
+}
+function nameAndLastNameValid(name){
+    return /^[a-z]{3,}$/gi.test(name);
+}
+function emailValid(email){
+    return /^\w+@\w+\.[a-z]{2,}$/gi.test(email); // ^[a-z]{3,}[0-9]{1,}@[a-z]{2,}\.[a-z]{2,}$
+}
+function ageValid(age){
+    return /^(1[89]|[2-9]\d|\d{3})$/g.test(age)
+}
 
 function validate(user) {
     return {
-        login: !(user.login === '' || user.login === ' '),
-        password:false,
-        name: !(user.name === '' || user.name === ' ' || !isNaN(user.name)),
-        lastName: !(user.lastName === '' || user.lastName === ' ' || !isNaN(user.lastName)),
-        age:false,
-        email: !(user.email === '' || user.email.length === 1) && user.email.includes("@"),
-        phone:false,
-        card:false,
+        login:loginValid(user.login),
+        password:passwordValid(user.password),
+        name: nameAndLastNameValid(user.name),
+        lastName:nameAndLastNameValid(user.lastName),
+        age:ageValid(user.age),
+        email:emailValid(user.email),
+        phone:phoneValid(user.phone),
+        card:cardValid(user.card),
     };
 
 }
@@ -199,14 +220,14 @@ function cleanElement(element) {
 
 function showError(isValid) {
     const errors = {
-        login: `please enter the correct login`,
-        password:`please enter the correct password`,
-        name: `please enter the correct name`,
-        lastName: `please enter the correct lastName`,
-        age:`please enter the correct age`,
+        login: `add the correct login min 3 letters`,
+        password:`enter the correct password from 4 to 16 characters (digits/letters)`,
+        name: `please enter the correct name min three letters`,
+        lastName: `please enter the correct lastName min three letters`,
+        age:`you must be over 18 years old`,
         email: `please enter the correct email`,
-        phone:`please enter the correct phone`,
-        card:`please enter the correct card`,
+        phone:`number should be in format +380 plus 9 digits`,
+        card:`add 16 digit card, every four 4 digits separated by a dash (-)`,
     }
     for (let field in isValid) {
         const inputElement = document.querySelector(`[name='${field}']`)
@@ -254,10 +275,13 @@ function displayInfoFromUser(event, element) {
             element.innerHTML = `<p>User INFO</p>
                                 <ul>
                                   <li>User login: ${user.login}</li>
+                                  <li>User password: ${user.password}</li>
                                   <li>User name: ${user.name}</li>
                                   <li>User last name: ${user.lastName}</li>
+                                  <li>User age: ${user.age}</li>
                                   <li>User email: ${user.email}</li>
-                               
+                                  <li>User phone: ${user.phone}</li>
+                                  <li>User card: ${user.card }</li>
                                 </ul>
                                `
         }
@@ -265,6 +289,6 @@ function displayInfoFromUser(event, element) {
     }
     setTimeout(() => {
         element.remove();
-    }, 3000);
+    }, 5000);
 
 }

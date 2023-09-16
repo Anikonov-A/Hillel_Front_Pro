@@ -20,7 +20,7 @@
 #form form{
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 400px;
 }
 .error{
     background: rgba(255, 0, 0, 0.5);
@@ -30,7 +30,7 @@
     flex-direction: column;
     gap: 5px;
     border: 2px grey solid;
-    width: 300px;
+    width: 400px;
     text-align: center;
 }
 .user-item li {
