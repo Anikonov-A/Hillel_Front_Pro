@@ -40,11 +40,11 @@ function showAddUserForm(chosenUser) {
     }
     createElement('input',parentSelector, '', {name: 'login', type: 'text', placeholder: 'Enter login min 3 letters can include digits or _ ', id: 'firstInput', value: chosenUser.login || ''});
     createElement('input',parentSelector, '', {name:'password',type:'text',placeholder:'Enter password min 4 max 16(letters/digits)',value: chosenUser.password || ''});
-    createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name min 3 letters', value: chosenUser.name || ''});
-    createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name min 3 letters', value: chosenUser.lastName || ''});
+    createElement('input',parentSelector, '', {name: 'name', type: 'text', placeholder: 'Enter name, min 3 letters', value: chosenUser.name || ''});
+    createElement('input',parentSelector, '', {name: 'lastName', type: 'text', placeholder: 'Enter last name, min 3 letters', value: chosenUser.lastName || ''});
     createElement('input',parentSelector, '',  {name:'age',type:'text',placeholder:'Enter your age,you must be over 18',value:chosenUser.age || ''});
     createElement('input',parentSelector, '', {name: 'email', type: 'text', placeholder: 'Enter email', value: chosenUser.email || ''});
-    createElement('input',parentSelector,'',{name:'phone',type:'text',placeholder:'Enter your Phone number starts with +380',value:chosenUser.phone || ''})
+    createElement('input',parentSelector,'',{name:'phone',type:'text',placeholder:'Enter your Phone number, starts with +380',value:chosenUser.phone || ''})
     createElement('input',parentSelector,'',{name:'card',type:'input',placeholder:`Enter your card every 4 digits separated by dash(-) `,value:chosenUser.card || ''});
 
     createElement('input',parentSelector, '', {type: "button", value: 'Save'}, {click: () => handleSaveUser(chosenUser)});
@@ -116,7 +116,7 @@ function cardValid(card){
     return /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/g.test(card);//(\d{4})\-(\d{4})\-(\d{4})\-(\d{4})
 }
 function passwordValid(password){
-    return /[0-9A-z]{4,16}/g.test(password);//+
+    return /[0-9A-Za-z]{4,16}/g.test(password);//+
 }
 function phoneValid(phone){
     return /^\+380[0-9]{9}$/g.test(phone);//+
@@ -125,13 +125,13 @@ function loginValid(login){
     return /^[a-zA-Z0-9_]{3,16}$/g.test(login); // /^[a-z]{3,}\d+$ letters with numbers in the end// ||^[a-z]{3,}$ only letters
 }
 function nameAndLastNameValid(name){
-    return /^[a-z]{3,}$/gi.test(name);//+
+    return /^[A-Za-z]{3,}$/g.test(name);//+
 }
 function emailValid(email){
     return /^[a-z0-9_]+@[a-z]+\.[a-z]{2,}$/gi.test(email); // ^[a-z]{3,}[0-9]{1,}@[a-z]{2,}\.[a-z]{2,}$||/\w+@\w\.[a-z]{2,}
 }
 function ageValid(age){
-    return /^(1[89]|[2-9]\d|\d{3})$/g.test(age);//+
+    return /^(1[89]|[2-9]\d|1[0-3]\d)$/g.test(age);//+
 }
 
 function validate(user) {
@@ -186,6 +186,7 @@ function confirmation(userId) {
 
 }
 
+
 function deleteUserById(id) {
     const indexToRemove = users.findIndex(user => user.id == id);
     users.splice(indexToRemove, 1);
@@ -194,6 +195,7 @@ function deleteUserById(id) {
 
     updateStorage();
 }
+
 
 function cleanElement(element) {
     if (typeof element === 'string') {
@@ -206,14 +208,14 @@ function cleanElement(element) {
 
 function showError(isValid) {
     const errors = {
-        login: `add the correct login min 3 letters can include digits or _ `,
-        password:`enter the correct password from 4 to 16 characters (digits/letters)`,
-        name: `please enter the correct name min three letters`,
-        lastName: `please enter the correct lastName min three letters`,
-        age:`you must be over 18 years old`,
-        email: `please enter the correct email`,
-        phone:`number should be in format +380 plus 9 digits`,
-        card:`add 16 digit card, every four 4 digits separated by a dash (-)`,
+        login: `Add the correct login, min 3 letters can include digits or _ `,
+        password:`Enter the correct password, from 4 to 16 characters (digits/letters)`,
+        name: `Please enter the correct name, min three letters`,
+        lastName: `Please enter the correct last name, min three letters`,
+        age:`You must be over 18 years old`,
+        email: `Please enter the correct email`,
+        phone:`Number should be in format +380 plus 9 digits`,
+        card:`Add 16 digit card, every four 4 digits separated by a dash (-)`,
     }
     for (let field in isValid) {
         const inputElement = document.querySelector(`[name='${field}']`)
@@ -268,12 +270,10 @@ function displayInfoFromUser(event, element) {
                                   <li>User email: ${user.email}</li>
                                   <li>User phone: ${user.phone}</li>
                                   <li>User card: ${user.card }</li>
-                                </ul>
-                               `
+                                </ul>`
         }
     }
     setTimeout(() => {
         element.remove();
     }, 5000);
-
 }
