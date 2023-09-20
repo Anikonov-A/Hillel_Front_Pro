@@ -18,7 +18,6 @@ function createModalWindow(){
 function modalWindow(){
     const myModal = new bootstrap.Modal(document.getElementById('myModal'));
     myModal.show();
-    submitOrCloseModal()
 }
 function hideBottomAlert() {
     const bottomAlert = document.getElementById('bottomAlert');
@@ -37,11 +36,6 @@ function showBottomAlert(message, alertType) {
             bottomAlert.remove()
         },3000)
     }
-}
-function submitOrCloseModal(){
-    document.querySelector('#closeBtn').addEventListener('click',()=>{
-        removeElement('#myModal');
-    })
 }
 function enableTooltip() {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
