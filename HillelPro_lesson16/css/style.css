@@ -1,0 +1,39 @@
+#main{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+#leftBlock{
+    border: 1px solid black;
+    height: 500px;
+    width: 500px;
+
+}
+#rightBlock{
+    border: 1px solid black;
+    height: 500px;
+    width: 500px;
+}
+#modalBtn,
+#alertBtn{
+
+   width: 200px;
+}
+.custom-tooltip{
+    --bs-tooltip-bg:violet;
+}
+.custom-tooltip-alert{
+    --bs-tooltip-bg:grey;
+}
+#bottomAlert {
+    position: fixed;
+    /*top: 0;*/
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: none;
+}
+#userInput{
+    width: 90%;
+}
