@@ -1,11 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lesson 19</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" >
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <title>Lesson 19</title>
 </head>
+<body>
+
+</body>
+</html>
 <body class="bg-black">
 <header>
     <div class="img-wrapper">
@@ -13,11 +20,32 @@
     </div>
 </header>
 <main>
-    <div class="bg-animation">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-        <div id="stars4"></div>
+    <div class="container-xl">
+        <div class="bg-animation">
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+            <div id="stars4"></div>
+        </div>
+        <div class="btn-wrapper col-12">
+            <button class="sw-btn" id="people-btn">people</button>
+            <button class="sw-btn" id="vehicle-btn">vehicle</button>
+            <button class="sw-btn" id="planets-btn">planets</button>
+        </div>
+        <div class="fields-wrapper col-12">
+            <div class="col-4 people-field" id="people-block">
+                <ul class='list' id="people-list"></ul>
+                <button class="next-btn" id="next-btn1">next page</button>
+            </div>
+            <div class="col-4 vehicle-field" id="vehicle-block">
+                <ul class='list' id="vehicle-list"></ul>
+                <button class="next-btn" id="next-btn2">next page</button>
+            </div>
+            <div class="col-4 planets-field" id="planets-block">
+                <ul class='list' id="planets-list"></ul>
+                <button class="next-btn" id="next-btn3">next page</button>
+            </div>
+        </div>
     </div>
 </main>
 <footer></footer>

@@ -1,7 +1,78 @@
 @import url("animation.css");
-.img-wrapper{
+@import url("fonts.css");
+
+.img-wrapper {
     text-align: center;
+    margin-bottom: 30px;
 }
-.img-wrapper img{
+
+.img-wrapper img {
     max-width: 300px;
+}
+
+.btn-wrapper {
+    padding: 5px;
+    position: relative;
+    max-width: 1170px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-around;
+    border: #FCDF2B 1px solid;
+    border-radius: 16px;
+
+}
+
+.sw-btn,.next-btn {
+    color: #FCDF2B;
+    background-color: transparent;
+    border: 1px solid #FCDF2B;
+    font-family: 'star_jediregular', sans-serif;
+    border-radius: 14px;
+    padding: 10px 22px;
+    transition: 500ms ease all;
+}
+
+.sw-btn:hover, :focus {
+    background-color: #FCDF2B;
+    color: black;
+}
+
+.fields-wrapper {
+    /*border:1px solid #FCDF2B;*/
+    /*border-radius: 16px;*/
+    margin: auto;
+    max-width: 1170px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+}
+.people-field,
+.vehicle-field,
+.planets-field{
+    max-width: 300px;
+    border: 1px solid #FCDF2B;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    visibility: hidden;
+
+
+}
+.list{
+    list-style: none;
+    font-family: 'star_jediregular',sans-serif;
+    text-transform: lowercase;
+    color: #FCDF2B;
+    text-align: left;
+}
+.list li {
+    cursor: pointer;
+}
+.list li:hover{
+    text-decoration: underline;
+}
+.next-btn{
+  font-size: 14px;
+    padding: 5px 10px;
 }
