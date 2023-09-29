@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#users{
+    display: flex;
+    flex-direction: column;
+}
+#users > div  {
+    display: flex;
+    gap: 20px;
+    margin: 5px;
+}
+.actions > input{
+    margin-right: 5px;
+}
+.editBtn{
+    width: 70px;
+}
+#form form{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+.error{
+    background: rgba(255, 0, 0, 0.5);
+}
+.user-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px grey solid;
+    width: 400px;
+    text-align: center;
+}
+.user-item li {
+    text-align: left;
+}
+
+.confirmation-block input{
+    margin: 0 7px
+}
