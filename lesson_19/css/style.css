@@ -28,7 +28,7 @@ body {
 
 }
 
-.sw-btn, .next-btn {
+.sw-btn, .next-btn,.prev-btn {
     color: #FCDF2B;
     background-color: transparent;
     border: 1px solid #FCDF2B;
@@ -37,7 +37,7 @@ body {
     transition: 500ms ease all;
 }
 
-.sw-btn:hover, .sw-btn:focus, .next-btn:hover, .next-btn:focus {
+.sw-btn:hover, .sw-btn:focus, .next-btn:hover, .next-btn:focus,.prev-btn:hover,.prev-btn:focus {
     background-color: #FCDF2B;
     color: black;
 }
@@ -82,7 +82,7 @@ body {
     text-decoration: underline;
 }
 
-.next-btn {
+.next-btn,.prev-btn {
     font-size: 14px;
     padding: 5px 10px;
 }
