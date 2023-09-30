@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <title>Lesson 19</title>
 </head>
-<body class="bg-black">
+<body class="bg-black text-lowercase">
 <header>
     <div class="img-wrapper">
         <img src="img/star_wars.png" alt="sw-logo">
@@ -24,35 +24,36 @@
             <div id="stars4"></div>
         </div>
         <div class="btn-wrapper col-12">
-            <button class="sw-btn" id="people-btn">people</button>
-            <button class="sw-btn" id="vehicle-btn">vehicle</button>
-            <button class="sw-btn" id="planets-btn">planets</button>
+            <button class="sw-btn" id="peopleBtn">people</button>
+            <button class="sw-btn" id="vehicleBtn">vehicle</button>
+            <button class="sw-btn" id="planetsBtn">planets</button>
         </div>
         <div class="fields-wrapper col-12">
-            <div class="col-4 people-field" id="people-block">
-                <ul class='list' id="people-list"></ul>
-                <button class="next-btn" id="next-btn1">show more</button>
+            <div class="col-4 people-field" id="peopleBlock">
+                <ul class='list' id="peopleList"></ul>
+                <button class="next-btn" id="peopleNext">show more</button>
             </div>
-            <div class="col-4 vehicle-field" id="vehicle-block">
-                <ul class='list' id="vehicle-list"></ul>
-                <button class="next-btn" id="next-btn2">show more</button>
+            <div class="col-4 vehicle-field" id="vehicleBlock">
+                <ul class='list' id="vehicleList"></ul>
+                <button class="next-btn" id="vehicleNext">show more</button>
             </div>
-            <div class="col-4 planets-field" id="planets-block">
-                <ul class='list' id="planets-list"></ul>
-                <button class="next-btn" id="next-btn3">show more</button>
+            <div class="col-4 planets-field" id="planetsBlock">
+                <ul class='list' id="planetsList"></ul>
+                <button class="next-btn" id="planetsNext">show more</button>
             </div>
         </div>
-        <div class="modal fade" id="exampleModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body"></div>
+                    <div class="modal-body" id="modalBody">
+                        <ul class="modal-list" id="modalList"></ul>
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">understood</button>
                     </div>
                 </div>
             </div>
@@ -62,6 +63,8 @@
 <footer></footer>
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="node_modules/axios/dist/axios.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/domHelper.js"></script>
 <script src="js/function.js"></script>
 <script src="js/app.js"></script>
 </body>

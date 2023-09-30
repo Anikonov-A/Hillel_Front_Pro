@@ -1,65 +1,96 @@
-function getAndDisplayPeopleData(){
-    document.getElementById('people-btn').addEventListener('click', () => {
+function getAndDisplayPeopleData() {
+    const {peopleBtn, peopleList, peopleNextBtn, peopleBlock, modalTitle, modalList} = domElements;
+    peopleBtn.addEventListener('click', () => {
         axios.get(urlObject.people)
             .then(people => {
                 const results = people.data.results;
+                peopleList.innerHTML = '';
+                if (people.data.next !== null) {
+                    peopleNextBtn.style.visibility = 'visible'
+                }
                 results.forEach(people => {
-                    document.getElementById('people-block').style.visibility = 'visible'
-                    const newLi = document.createElement('li');
-                    newLi.textContent = people.name;
-                    newLi.setAttribute('data-bs-toggle',"modal")
-                    newLi.setAttribute('data-bs-target',"#exampleModal")
-                    dataBlocks.people.appendChild(newLi)
+                    peopleBlock.style.visibility = 'visible'
+                    createElement(`li`, '#peopleList', people.name, {
+                        'data-bs-toggle': "modal",
+                        'data-bs-target': "#myModal"
+                    })
                 });
-
-                document.getElementById('people-block').addEventListener('click', (event) => {
+                peopleBlock.addEventListener('click', (event) => {
                     if (event.target.nodeName === 'LI') {
                         const listItemText = event.target.textContent;
-                        const character = results.find(person => person.name === listItemText)
-                        console.log(character)
+                        const character = results.find(person => person.name === listItemText);
+
+                        modalTitle.textContent = character.name;
+                        modalList.innerHTML = '';
+                        dataProperties.peopleProperties.forEach(property => {
+                            createElement(`li`, '#modalList', `${property}: ${character[property]}`);
+                        })
                     }
                 })
             })
     })
 }
-function getAndDisplayVehicleData(){
-    document.getElementById('vehicle-btn').addEventListener('click', () => {
+
+function getAndDisplayVehicleData() {
+    const {vehicleBtn, vehicleList, vehicleNextBtn, vehicleBlock, modalTitle, modalList} = domElements;
+    vehicleBtn.addEventListener('click', () => {
         axios.get(urlObject.vehicle)
             .then(vehicles => {
                 const results = vehicles.data.results;
+                vehicleList.innerHTML = '';
+                if (vehicles.data.next !== null) {
+                    vehicleNextBtn.style.visibility = 'visible'
+                }
                 results.forEach(vehicle => {
-                    document.getElementById('vehicle-block').style.visibility = 'visible'
-                    const newLi = document.createElement('li');
-                    newLi.textContent = vehicle.name;
-                    dataBlocks.vehicle.appendChild(newLi)
+                    vehicleBlock.style.visibility = 'visible'
+                    createElement(`li`, '#vehicleList', vehicle.name, {
+                        'data-bs-toggle': "modal",
+                        'data-bs-target': "#myModal"
+                    });
                 })
-                document.getElementById('vehicle-block').addEventListener('click', (event) => {
+                vehicleBlock.addEventListener('click', (event) => {
                     if (event.target.nodeName === 'LI') {
                         const listItemText = event.target.textContent;
-                        const vehicles = results.find(vehicle => vehicle.name === listItemText)
-                        console.log(vehicles)
+                        const vehicles = results.find(vehicle => vehicle.name === listItemText);
+
+                        modalTitle.textContent = vehicles.name;
+                        modalList.innerHTML = '';
+                        dataProperties.vehicleProperties.forEach(property => {
+                            createElement(`li`, '#modalList', `${property}: ${vehicles[property]}`);
+                        })
                     }
                 })
-
             })
     })
 }
-function getAndDisplayPlanetsData(){
-    document.getElementById('planets-btn').addEventListener('click', () => {
+
+function getAndDisplayPlanetsData() {
+    const {planetsBtn, planetsList, planetsNextBtn, planetsBlock, modalTitle, modalList} = domElements
+    planetsBtn.addEventListener('click', () => {
         axios.get(urlObject.planets)
             .then(planets => {
                 const results = planets.data.results;
+                planetsList.innerHTML = '';
+                if (planets.data.next !== null) {
+                    planetsNextBtn.style.visibility = 'visible';
+                }
                 results.forEach(planet => {
-                    document.getElementById('planets-block').style.visibility = 'visible'
-                    const newLi = document.createElement('li');
-                    newLi.textContent = planet.name;
-                    dataBlocks.planets.appendChild(newLi)
+                    planetsBlock.style.visibility = 'visible'
+                    createElement(`li`, '#planetsList', planet.name, {
+                        'data-bs-toggle': "modal",
+                        'data-bs-target': "#myModal"
+                    });
                 })
-                document.getElementById('planets-block').addEventListener('click', (event) => {
+                document.getElementById('planetsBlock').addEventListener('click', (event) => {
                     if (event.target.nodeName === 'LI') {
                         const listItemText = event.target.textContent;
                         const planets = results.find(planet => planet.name === listItemText)
-                        console.log(planets)
+
+                        modalTitle.textContent = planets.name;
+                        modalList.innerHTML = '';
+                        planetsProperties.forEach(property => {
+                            createElement(`li`, '#modalList', `${property}: ${planets[property]}`);
+                        })
                     }
                 })
             })

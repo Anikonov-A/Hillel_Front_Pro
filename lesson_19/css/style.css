@@ -1,8 +1,12 @@
 @import url("animation.css");
 @import url("fonts.css");
-body{
+
+body {
     background-color: black;
+    font-family: 'star_jediregular', sans-serif !important;
+
 }
+
 .img-wrapper {
     text-align: center;
     margin-bottom: 30px;
@@ -24,17 +28,16 @@ body{
 
 }
 
-.sw-btn,.next-btn {
+.sw-btn, .next-btn {
     color: #FCDF2B;
     background-color: transparent;
     border: 1px solid #FCDF2B;
-    font-family: 'star_jediregular', sans-serif;
     border-radius: 14px;
     padding: 10px 22px;
     transition: 500ms ease all;
 }
 
-.sw-btn:hover, :focus {
+.sw-btn:hover, .sw-btn:focus, .next-btn:hover, .next-btn:focus {
     background-color: #FCDF2B;
     color: black;
 }
@@ -49,10 +52,11 @@ body{
     justify-content: space-around;
     padding: 15px 0;
 }
+
 .people-field,
 .vehicle-field,
-.planets-field{
-    max-width: 300px;
+.planets-field {
+    max-width: 350px;
     border: 1px solid #FCDF2B;
     border-radius: 12px;
     padding: 10px;
@@ -61,23 +65,35 @@ body{
 
 
 }
-.list{
+
+.list {
     list-style: none;
-    font-family: 'star_jediregular',sans-serif;
     text-transform: lowercase;
     color: #FCDF2B;
     text-align: left;
 }
+
 .list li {
     cursor: pointer;
+    margin-bottom: 10px;
 }
-.list li:hover{
+
+.list li:hover {
     text-decoration: underline;
 }
-.next-btn{
-  font-size: 14px;
+
+.next-btn {
+    font-size: 14px;
     padding: 5px 10px;
 }
-.modal{
-
+.next-btn{
+    visibility: hidden;
+}
+.modal-content{
+    background-color: black !important;
+    border:1px solid #FCDF2B !important;
+    color: #FCDF2B !important;
+}
+.modal-content li{
+    margin-bottom: 15px;
 }
