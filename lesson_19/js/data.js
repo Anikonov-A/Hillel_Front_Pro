@@ -27,6 +27,11 @@ const domElements={
         "modalList": document.getElementById('modalList'),
     },
 }
+const pagesObj ={
+    peoplePage:1,
+    vehiclesPage:1,
+    planetsPage:1,
+}
 
 const urlObject = {
     "people": `https://swapi.dev/api/people/`,
