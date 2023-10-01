@@ -27,8 +27,6 @@ function getAndDisplayAllData(urlObject, elements, elementsKey, currentPage, dat
                                 createElement(`li`, '#modalList', `${property}: ${item[property]}`);
                             })
                         }
-
-
                     }
                 })
             })
@@ -41,6 +39,4 @@ function getAndDisplayAllData(urlObject, elements, elementsKey, currentPage, dat
     nextBtn.addEventListener('click',()=>{
         displayAllData(currentPage++)
     });
-
-
 }

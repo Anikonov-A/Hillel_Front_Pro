@@ -97,3 +97,6 @@ body {
 .modal-content li{
     margin-bottom: 15px;
 }
+.modal-btn{
+    background-color: #FCDF2B !important;
+}
