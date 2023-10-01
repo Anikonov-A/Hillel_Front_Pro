@@ -1,7 +1,31 @@
-const functionsList ={
-    peopleFunc:getAndDisplayPeopleData,
-    vehicleFunc:getAndDisplayVehicleData,
-    planetsFunc:getAndDisplayPlanetsData,
+const domElements={
+    'people':{
+        "btn": document.getElementById('peopleBtn'),
+        "list": document.getElementById(`peopleList`),
+        "nextBtn": document.getElementById(`peopleNext`),
+        "prevBtn": document.getElementById('peoplePrev'),
+        "block": document.getElementById('peopleBlock'),
+        "modalTitle": document.getElementById('modalTitle'),
+        "modalList": document.getElementById('modalList'),
+    },
+    'vehicle':{
+        "btn": document.getElementById('vehicleBtn'),
+        "list": document.getElementById(`vehicleList`),
+        "nextBtn": document.getElementById(`vehicleNext`),
+        "prevBtn": document.getElementById('vehiclePrev'),
+        'block': document.getElementById('vehicleBlock'),
+        "modalTitle": document.getElementById('modalTitle'),
+        "modalList": document.getElementById('modalList'),
+    },
+    'planets':{
+        "btn": document.getElementById('planetsBtn'),
+        "list": document.getElementById(`planetsList`),
+        "nextBtn": document.getElementById(`planetsNext`),
+        "prevBtn": document.getElementById('planetsPrev'),
+        "block": document.getElementById('planetsBlock'),
+        "modalTitle": document.getElementById('modalTitle'),
+        "modalList": document.getElementById('modalList'),
+    },
 }
 
 const urlObject = {
@@ -9,28 +33,8 @@ const urlObject = {
     "vehicle": "https://swapi.dev/api/vehicles/",
     "planets": "https://swapi.dev/api/planets/",
 }
-const domElements = {
-    "peopleBtn": document.getElementById('peopleBtn'),
-    "vehicleBtn": document.getElementById('vehicleBtn'),
-    "planetsBtn": document.getElementById('planetsBtn'),
-    "peopleList": document.getElementById(`peopleList`),
-    "vehicleList": document.getElementById(`vehicleList`),
-    "planetsList": document.getElementById(`planetsList`),
-    "modalTitle": document.getElementById('modalTitle'),
-    "modalList": document.getElementById('modalList'),
-    "peopleNextBtn": document.getElementById(`peopleNext`),
-    "vehicleNextBtn": document.getElementById(`vehicleNext`),
-    "planetsNextBtn": document.getElementById(`planetsNext`),
-    "peoplePrevBtn": document.getElementById('peoplePrev'),
-    "vehiclePrevBtn": document.getElementById('vehiclePrev'),
-    "planetsPrevBtn": document.getElementById('planetsPrev'),
-    "peopleBlock": document.getElementById('peopleBlock'),
-    'vehicleBlock': document.getElementById('vehicleBlock'),
-    "planetsBlock": document.getElementById('planetsBlock'),
-}
-
 const dataProperties = {
-    peopleProperties: ['height', 'mass', 'hair_color', 'eye_color', 'birth_year', 'gender'],
-    vehicleProperties: ['model', 'manufacturer', 'cost_in_credits', 'length', 'max_atmosphering_speed', 'crew', 'passengers', 'cargo_capacity', 'consumables', 'vehicle_class'],
-    planetsProperties: ['rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population'],
+    people: ['height', 'mass', 'hair_color', 'eye_color', 'birth_year', 'gender'],
+    vehicles: ['model', 'manufacturer', 'cost_in_credits', 'length', 'max_atmosphering_speed', 'crew', 'passengers', 'cargo_capacity', 'consumables', 'vehicle_class'],
+    planets: ['rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population'],
 }
