@@ -11,42 +11,56 @@
 <body>
 <div class="main">
     <div class="container">
-        <form action="#" id="personForm">
-            <h2>Create person</h2>
-            <label for="name">Enter your person name: </label>
-            <input type="text" id="name">
+        <div id="personCard">
+            <form action="#" id="personForm">
+                <h2>Create person</h2>
+                <label for="name">Enter your person name: </label>
+                <input type="text" id="name">
+                <p id="nameError"></p>
 
-            <label for="lastName">Enter your person last name: </label>
-            <input type="text" id="lastName">
+                <label for="lastName">Enter your person last name: </label>
+                <input type="text" id="lastName">
+                <p id="lastNameError"></p>
 
-            <label for="age">Enter your person age: </label>
-            <input type="text" id="age">
+                <label for="age">Enter your person age: </label>
+                <input type="text" id="age">
+                <p id="ageError"></p>
 
-            <label for="eyeColor">Enter your person hair color: </label>
-            <input type="text" id="eyeColor">
+                <label for="eyeColor">Enter your person eye color: </label>
+                <input type="text" id="eyeColor">
+                <p id="eyeError"></p>
 
-            <input type="button" value="Save person" id="savePerson">
-        </form>
-        <form action="#" id="carForm">
-            <h2>Create car</h2>
+                <input type="button" value="Save person" id="savePerson">
+            </form>
+        </div>
+        <div>
+            <form action="#" id="carForm">
+                <h2>Create car</h2>
 
-            <label for="carBrand">Enter your car brand: </label>
-            <input type="text" id="carBrand">
+                <label for="carBrand">Enter your car brand: </label>
+                <input type="text" id="carBrand">
+                <p id="brandError"></p>
 
-            <label for="carColor">Enter your car color: </label>
-            <input type="text" id="carColor">
+                <label for="carColor">Enter your car color: </label>
+                <input type="text" id="carColor">
+                <p id="colorError"></p>
 
-            <label for="engineSize">Enter your engine size: </label>
-            <input type="text" id="engineSize">
+                <label for="engineSize">Enter your engine size (through the point): </label>
+                <input type="text" id="engineSize">
+                <p id="engineError"></p>
 
-            <label for="wheelsSize">Enter your wheel size: </label>
-            <input type="text" id="wheelsSize">
+                <label for="wheelsSize">Enter your wheel size from 13 to 24 inch: </label>
+                <input type="text" id="wheelsSize">
+                <p id="wheelsError"></p>
 
-            <input type="button" value="Save car" id="saveCar">
-        </form>
+                <input type="button" value="Save car" id="saveCar">
+            </form>
+        </div>
     </div>
 </div>
-
+<script src="js/validate.js"></script>
+<script src="js/car.js"></script>
+<script src="js/person.js"></script>
 <script src="js/functions.js"></script>
 <script src="js/app.js"></script>
 </body>
