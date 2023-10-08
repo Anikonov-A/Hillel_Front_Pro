@@ -17,11 +17,11 @@
     border-radius: 13px;
 }
 
-#savePerson, #saveCar {
-    max-width: 100px;
-    margin-left: calc(50% - 50px);
-}
+
 #personForm > p,#carForm >p {
     margin-top: -7px;
     color: red;
+}
+#assignment{
+    height: 40px;
 }

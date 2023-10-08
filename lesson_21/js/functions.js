@@ -18,3 +18,13 @@ function getValueFromCarFields (){
 }
 
 
+function showData(object,id){
+    document.getElementById(id).addEventListener('click', () => {
+        object.showData()
+    })
+}
+function assigmentData(carObject,personObject){
+    document.getElementById(`assignment`).addEventListener('click', () => {
+        carObject.assignOwner(personObject)
+    })
+}

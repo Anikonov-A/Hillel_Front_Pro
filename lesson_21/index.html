@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>lesson 21</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
 <div class="main">
@@ -30,7 +31,8 @@
                 <input type="text" id="eyeColor">
                 <p id="eyeError"></p>
 
-                <input type="button" value="Save person" id="savePerson">
+                <input type="button" value="Save person" class="btn btn-primary" id="savePerson">
+                <input type="button" value="show person" style="visibility: hidden" id="showPerson" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             </form>
         </div>
         <div>
@@ -53,11 +55,31 @@
                 <input type="text" id="wheelsSize">
                 <p id="wheelsError"></p>
 
-                <input type="button" value="Save car" id="saveCar">
+                <input type="button" value="Save car" id="saveCar" class="btn btn-primary">
+                <input type="button" value="show car" style="visibility: hidden" id="showCar" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <input type="button" class="btn btn-warning" id="assignment" value="assign to the owner" style="display: none">
             </form>
         </div>
     </div>
 </div>
+<div class="modal" tabindex="-1" id="exampleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <ul id="list"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--                <button type="button" class="btn btn-primary" id="assignment">Assigment</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/validate.js"></script>
 <script src="js/car.js"></script>
 <script src="js/person.js"></script>

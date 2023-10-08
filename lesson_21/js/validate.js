@@ -1,6 +1,6 @@
 const regExpsForPerson = {
     name: {
-        regexp: /^[A-Za-z]{3,}$/g,
+        regexp: /^[A-Za-z]{3,}$/,
         error: {
             message: `Enter correct name`,
             element: document.getElementById(`nameError`),
@@ -8,7 +8,7 @@ const regExpsForPerson = {
         formElement: document.getElementById(`name`),
     },
     lastName: {
-        regexp: /^[A-Z][a-z]{3,}$/g,
+        regexp: /^[A-Za-z]{3,}$/,
         error: {
             message: `Enter correct last name`,
             element: document.getElementById(`lastNameError`),
@@ -16,7 +16,7 @@ const regExpsForPerson = {
         formElement: document.getElementById(`lastName`),
     },
     age: {
-        regexp: /^(1[89])|([2-9]\d)|(1[0-2]\d)$/g,
+        regexp: /^(1[89])|([2-9]\d)|(1[0-2]\d)$/,
         error: {
             message: `You must be over 18`,
             element: document.getElementById(`ageError`),
@@ -24,7 +24,7 @@ const regExpsForPerson = {
         formElement: document.getElementById(`age`),
     },
     eyeColor: {
-        regexp: /^[A-Z]|[a-z]{3,}$/g,
+        regexp: /^[A-Za-z]{3,}$/,
         error: {
             message: `Enter correct eye color`,
             element: document.getElementById(`eyeError`),
@@ -32,9 +32,10 @@ const regExpsForPerson = {
         formElement: document.getElementById(`eyeColor`),
     },
 }
+
 const regExpsForCars={
     carBrand:{
-        regexp:/^[A-Z]|[a-z]{3,}$/g,
+        regexp:/^[A-Za-z]{3,}$/,
         error:{
             message:`Enter correct car brand`,
             element:document.getElementById(`brandError`),
@@ -42,7 +43,7 @@ const regExpsForCars={
         formElement:document.getElementById(`carBrand`),
     },
     carColor:{
-        regexp:/^[A-Z]|[a-z]{3,}$/g,
+        regexp:/^[A-Za-z]{3,}$/,
         error: {
             message: `Enter correct color`,
             element: document.getElementById(`colorError`),
@@ -50,7 +51,7 @@ const regExpsForCars={
         formElement:document.getElementById(`carColor`),
     },
     engineSize:{
-        regexp:/^[0-9]\.[0-9]$/g,
+        regexp:/^[0-9]\.[0-9]$/,
         error:{
             message:`Your value must be through the point ex(1.2)`,
             element:document.getElementById(`engineError`),
@@ -58,7 +59,7 @@ const regExpsForCars={
         formElement:document.getElementById(`engineSize`)
     },
     wheelsSize:{
-        regexp:/^1([3-9])|2[0-4]&/g,
+        regexp:/^(1[3-9]|2[0-4])$/,
         error:{
             message:`Wheels size could be from 13 to 24 inch`,
             element:document.getElementById(`wheelsError`)
@@ -68,17 +69,18 @@ const regExpsForCars={
 }
 
 
-
 function validateData(regExps) {
     let isValid = true
     for (let key in regExps) {
-        if (!regExps[key].formElement.value && !regExps[key].regexp.test(regExps[key].formElement.value)) {
-            regExps[key].error.element.textContent = regExps[key].error.message;
-            isValid = false
+        const regItem = regExps[key]
+        if (!regItem.regexp.test(regItem.formElement.value)) {
+            regItem.error.element.textContent = regItem.error.message;
+            isValid =false
         } else {
-            regExps[key].error.element.textContent = '';
+            regItem.error.element.textContent = '';
         }
     }
-    return isValid
+    return  isValid
 }
+
 
