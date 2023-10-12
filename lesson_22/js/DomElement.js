@@ -36,15 +36,3 @@ class CreateDomElement {
         }
     }
 }
-const liParam ={
-    element:'li',
-    attributes:[{className: 'list-item'}],
-    content: 'list-item',
-    parentElement:`#list`,
-    handlers:{'click': () => console.log('click')}
-}
-
-const li = new CreateDomElement(liParam)
-
-
-

@@ -1,0 +1,30 @@
+#container{
+    max-width: 1270px;
+    margin: auto;
+}
+#formWrapper > form{
+    max-width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border: 2px solid #808080;
+    border-radius: 25px;
+
+
+}
+#myForm >*{
+    margin-bottom: 10px;
+}
+.btn-wrapper{
+    max-width: 100px;
+    margin: auto;
+}
+ #sendBtn{
+    width: 100px;
+    margin: auto;
+
+}
+#myForm > p{
+    color: red;
+}

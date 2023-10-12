@@ -10,16 +10,41 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" id="createHouse" aria-current="page">Create new
+                house</a></li>
+        </ul>
+    </header>
+</div>
+
 <div id="container">
-    <ul id="list"></ul>
+    <div id="formWrapper" style="visibility: hidden">
+        <form action="#" id="myForm">
+            <label for="inputOne" id="labelOne"></label>
+            <input type="text" id="inputOne">
+            <p id="errorOne"></p>
+            <label for="inputTwo" id="labelTwo"></label>
+            <input type="text" id="inputTwo">
+            <p id="errorTwo"></p>
+            <label for="inputThree" id="labelThree"></label>
+            <input type="text" id="inputThree">
+            <p id="errorThree"></p>
+        </form>
+        <div class="btn-wrapper">
+            <input type="button" value="Send button" id="sendBtn">
+        </div>
+    </div>
 </div>
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/DomElement.js"></script>
-<script src="js/data.js"></script>
-<script src="js/functions.js"></script>
+<!--<script src="js/DomElement.js"></script>-->
+<!--<script src="js/data.js"></script>-->
+<script src="js/validate.js"></script>
 <script src="js/House.js"></script>
 <script src="js/Apartment.js"></script>
-<script src="js/Resident.js"></script>
+<script src="js/Person.js"></script>
+<script src="js/functions.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
