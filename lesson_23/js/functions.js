@@ -5,8 +5,10 @@ const sendBtn = document.getElementById(`sendBtn`)
 function sendMessage() {
     let myMessage = userInput.value;
     if (validation(myMessage)) {
+        userInput.value='';
         addMessage(myMessage)
         startBotThinking()
+
     }
 }
 
@@ -48,10 +50,10 @@ function botMessaging() {
 
     const userInputValue = userInput.value.toLowerCase();
 
-    if (['hi','hello'].includes(userInputValue)) {
+    if (userInputValue.includes('hi')|| userInputValue.includes('hello')) {
         botMessage = answers[0];
         addMessage(botMessage)
-    } else if (['stop', 'bye', 'my watch has ended'].includes(userInputValue)) {
+    } else if (userInputValue.includes('stop')||userInputValue.includes('bye')||userInputValue.includes('my watch has ended')) {
         stopChat()
         botMessage = answers[answers.length-1]
         addMessage(botMessage)
