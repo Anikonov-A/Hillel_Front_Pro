@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lesson 23</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="main">
+    <h1>Choose your meal</h1>
+    <div class="container">
+        <div class="order-card">
+            <div class="size-box">
+                <h2>Choose hamburger size:</h2>
+                <label for="big">Big Hamburger(+100 tugriks,+40 calories)
+                    <input type="radio" id="big" name="size"checked>
+                </label>
+                <label for="small">Small Hamburger(+50 tugriks,+20 calories)
+                    <input type="radio" id="small" name="size">
+                </label>
+            </div>
+            <div class="stuffing-box">
+                <h2>Choose stuffing: </h2>
+                <label for="cheese">Add cheese (+10 tugriks,+20 calories)
+                    <input type="radio" id="cheese" name="stuffing">
+                </label>
+                <label for="salad">Add salad (+20 tugriks, +5 calories)
+                    <input type="radio" id="salad" name="stuffing">
+                </label>
+                <label for="fries">Add fries (+15 tugriks,+10 calories)
+                    <input type="radio" id="fries" name="stuffing">
+                </label>
+            </div>
+            <div class="topping-box">
+                <h2>Choose topping: </h2>
+                <label for="seasoning">Add seasoning (+15 tugriks, +0 calories)
+                    <input type="radio" id="seasoning" name="topping">
+                </label>
+                <label for="mayo">Add mayo (+20 tugriks,+5 calories)
+                    <input type="radio" id="mayo" name="topping">
+                </label>
+            </div>
+            <input type="button" id="calcBtn" value="Calculate result">
+        </div>
+        <div class="bill_card">
+            <h2>Final price: <span id="finalPrice"></span></h2>
+            <h2>Total calories: <span id="totalCalories"></span></h2>
+        </div>
+
+    </div>
+</main>
+<script src="js/Hamburger.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

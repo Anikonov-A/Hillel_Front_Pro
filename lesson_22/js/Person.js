@@ -1,16 +1,10 @@
 class Person {
-    constructor(name,lastName,age) {
+    constructor(name) {
         this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-
     }
 
     showInfo(){
         console.log(`
-        Name: ${this.name},
-        LastName:${this.lastName},
-        Age:${this.age}
-        `)
+        Name: ${this.name},`)
     }
 }

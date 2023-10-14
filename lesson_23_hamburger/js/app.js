@@ -1,0 +1,1 @@
+document.getElementById(`calcBtn`).addEventListener('click',()=>calculateOrder())

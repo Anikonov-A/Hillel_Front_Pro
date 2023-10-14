@@ -28,3 +28,12 @@
 #myForm > p{
     color: red;
 }
+#apartmentFormWrapper,#peopleFormWrapper {
+   max-width: 50%;
+    margin: auto;
+}
+#apartForm,#peopleForm {
+    display: flex;
+    flex-direction: column;
+}
+
