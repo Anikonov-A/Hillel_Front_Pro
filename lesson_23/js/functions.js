@@ -7,7 +7,7 @@ function sendMessage() {
     if (validation(myMessage)) {
         userInput.value='';
         addMessage(myMessage)
-        startBotThinking()
+        startBotThinking(myMessage)
 
     }
 }
@@ -34,30 +34,31 @@ function stopChat() {
     sendBtn.disabled = true;
 }
 
-async function startBotThinking() {
+async function startBotThinking(myMessage) {
     sendBtn.disabled = true;
     const amountOfTime = Math.floor(Math.random() * 10);
     await new Promise(res => setTimeout(res, amountOfTime * 1000));
     sendBtn.disabled = false;
-    botMessaging();
+    botMessaging(myMessage);
 
 }
 
-function botMessaging() {
+function botMessaging(myMessage) {
     const messageIndex = Math.floor(Math.random() * answers.length);
     const jokeIndex = Math.floor(Math.random() * jokes.length);
     let botMessage = answers[messageIndex];
 
     const userInputValue = userInput.value.toLowerCase();
+    console.log(userInputValue)
 
-    if (userInputValue.includes('hi')|| userInputValue.includes('hello')) {
+    if (['hi','hello'].includes(myMessage)) {
         botMessage = answers[0];
         addMessage(botMessage)
-    } else if (userInputValue.includes('stop')||userInputValue.includes('bye')||userInputValue.includes('my watch has ended')) {
+    } else if (['stop', 'bye', 'my watch has ended'].includes(myMessage)) {
         stopChat()
         botMessage = answers[answers.length-1]
         addMessage(botMessage)
-    } else if (userInputValue.includes(`joke`)) {
+    } else if (myMessage.includes(`joke`)) {
         botMessage = jokes[jokeIndex]
         addMessage(botMessage)
     } else if(botMessage === answers[answers.length -1]){
