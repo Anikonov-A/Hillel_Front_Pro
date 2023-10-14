@@ -20,4 +20,6 @@ const jokes=[
  "Why don't oysters donate to charity? Because they are shellfish.",
  "What's a JavaScript developer's favorite soda? Callback-ula!",
  "Why do JavaScript developers make terrible DJs? Because they don't know when to 'break' the loop.",
+ "Why was the JavaScript event sad? Because it didn't have any listeners.",
+ "Why did the JavaScript developer stay calm during a crisis? Because he knew how to 'try-catch' his emotions!",
 ]
