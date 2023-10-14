@@ -1,3 +1,10 @@
+*{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
 .container{
     max-width: 1270px;
     margin: auto;
@@ -5,8 +12,11 @@
 .chat-window-wrapper{
     max-width: 1100px;
     margin: auto;
-    padding-top: 100px;
     border:2px solid rgb(128, 128, 128);
+}
+#textField{
+    min-height: 500px;
+    padding: 15px;
 }
 .chat-input-wrapper{
     padding: 10px;
@@ -15,4 +25,23 @@
     gap: 10px;
     border-top:2px solid rgb(128, 128, 128);
 
+}
+#chatList{
+    display: flex;
+    flex-direction: column;
+}
+#chatList li:nth-child(even){
+    padding: 7px 13px;
+    background-color: aqua;
+    border-radius: 13px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+#chatList li:nth-child(odd){
+    align-self: flex-end;
+    text-align: left;
+    padding: 7px 13px;
+    background-color: lightcoral;
+    border-radius: 13px;
 }
