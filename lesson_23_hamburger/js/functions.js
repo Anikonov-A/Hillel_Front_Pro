@@ -1,7 +1,17 @@
 function calculateOrder() {
     const smallCheckBox = document.getElementById(`small`);
     const bigCheckBox = document.getElementById(`big`);
-    let hamburgerSize = smallCheckBox.checked ? Hamburger.SIZE_SMALL : bigCheckBox.checked ? Hamburger.SIZE_BIG : null;
+    let hamburgerSize;
+
+    // let hamburgerSize = smallCheckBox.checked ? Hamburger.SIZE_SMALL : bigCheckBox.checked ? Hamburger.SIZE_BIG : null;
+
+    if (smallCheckBox.checked){
+        hamburgerSize = Hamburger.SIZE_SMALL;
+    }else if(bigCheckBox.checked){
+        hamburgerSize = Hamburger.SIZE_BIG;
+    }
+
+
 
     const hamburger = new Hamburger(hamburgerSize);
 

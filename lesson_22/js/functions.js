@@ -75,10 +75,8 @@ function getDataFromApartment() {
     }
 }
 
-let isSendButtonCreated = false; // Флаг, указывающий, создана ли уже кнопка "Отправить"
-
 function createFormForPeople() {
-    const formForPeople = createElement(`form`, `#peopleFormWrapper`, ``, { id: 'peopleForm' });
+    const formForPeople = createElement(`form`, `#peopleFormWrapper`, ``, {id: 'peopleForm'});
     console.log(house.apartments);
 
     house.apartments.forEach((apartment, index) => {
@@ -90,25 +88,24 @@ function createFormForPeople() {
 
                 if (!document.getElementById(inputId)) {
                     if (i === 1) {
-                        createElement(`h2`, formForPeople, `Flat ${index + 1}`, { id: `personInFlat${index + 1}` });
+                        createElement(`h2`, formForPeople, `Flat ${index + 1}`, {id: `personInFlat${index + 1}`});
                     }
                     createElement(`label`, formForPeople, `Enter your person name`);
-                    createElement(`input`, formForPeople, ``, { type: 'text', id: inputId });
+                    createElement(`input`, formForPeople, ``, {type: 'text', id: inputId});
                 }
             }
         }
     });
 
+    createSendButton(formForPeople);
 
-    if (!isSendButtonCreated) {
-        createSendButton(formForPeople);
-        isSendButtonCreated = true;
-    }
+
 }
 
 function createSendButton(formForPeople) {
-    createElement(`button`, formForPeople, `Send People`, { type: 'button', id: "pushPeople" });
+    createElement(`button`, formForPeople, `Send People`, {type: 'button', id: "pushPeople"});
 }
+
 displayForm()
 // apartment.people.forEach((_,pIndex)=>{
 //     createElement(`h2`, formForPeople, `Flat${index+1}`, {id: `personInFlat${index+1}`});
