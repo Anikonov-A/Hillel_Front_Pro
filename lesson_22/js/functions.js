@@ -25,7 +25,7 @@ function createHouse() {
             floors: document.getElementById(`inputTwo`).value,
             flatsCounter: document.getElementById(`inputThree`).value,
         }
-        console.log(houseData)
+
 
         house.address = houseData.address;
         house.floors = houseData.floors;
@@ -64,12 +64,9 @@ function getDataFromApartment() {
         const numberOfRooms = document.getElementById(`numberOfRooms${i}`);
         const numberOfPeople = document.getElementById(`numberOfPeople${i}`);
 
-        // const roomsInputs = [...document.getElementById(`numberOfRooms${i}`)];
-        // const peopleInputs = [...document.getElementById(`numberOfPeople${i}`)];
-
-
         house.apartments.push(new Apartment(flatNumber.value, numberOfRooms.value, people, numberOfPeople.value));
         document.getElementById(`apartmentFormWrapper`).style.display = 'none'
+        console.log(house.apartments)
         createFormForPeople()
 
     }
@@ -77,14 +74,14 @@ function getDataFromApartment() {
 
 function createFormForPeople() {
     const formForPeople = createElement(`form`, `#peopleFormWrapper`, ``, {id: 'peopleForm'});
-    console.log(house.apartments);
 
     house.apartments.forEach((apartment, index) => {
         if (apartment.hasOwnProperty('peopleCounter')) {
             const peopleCounter = apartment.peopleCounter;
-
+            let apartmentIndex = 0;
             for (let i = 1; i <= peopleCounter; i++) {
                 const inputId = `person${index + 1}_${i}`;
+
 
                 if (!document.getElementById(inputId)) {
                     if (i === 1) {
@@ -92,24 +89,40 @@ function createFormForPeople() {
                     }
                     createElement(`label`, formForPeople, `Enter your person name`);
                     createElement(`input`, formForPeople, ``, {type: 'text', id: inputId});
+
                 }
+            }
+            if (index === house.apartments.length - 1) {
+                createElement(`button`, formForPeople, `Send People`, {type: 'button', id: `pushPeople${index+1}`}, {
+                    'click': () => {
+                        for (let i = 1; i <= peopleCounter; i++) {
+
+                            const inputId = `person${index + 1}_${i}`;
+
+                            console.log(inputId)
+
+                            let personData = document.getElementById(inputId).value
+                            house.apartments[apartmentIndex].people.push(new Person(personData));
+                            console.log(house.apartments)
+                            apartmentIndex++
+
+
+                            document.getElementById(`pushPeople${index+1}`).style.visibility ='hidden'
+                        }
+                    }
+                });
             }
         }
     });
 
-    createSendButton(formForPeople);
-
-
+    console.log(house.apartments)
+    house.showInfo()
 }
 
-function createSendButton(formForPeople) {
-    createElement(`button`, formForPeople, `Send People`, {type: 'button', id: "pushPeople"});
-}
+
+// function createSendButton(formForPeople) {
+//    const pushPeople = createElement(`button`, formForPeople, `Send People`, {type: 'button', id: "pushPeople"},{});
+// }
+
 
 displayForm()
-// apartment.people.forEach((_,pIndex)=>{
-//     createElement(`h2`, formForPeople, `Flat${index+1}`, {id: `personInFlat${index+1}`});
-//     createElement(`label`, formForPeople, `Enter your person name`);
-//     createElement(`input`, formForPeople, ``, {type: 'text', id: `person${pIndex}`})
-//
-// })

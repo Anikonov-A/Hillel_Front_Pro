@@ -1,0 +1,58 @@
+*{
+    margin: 10px;
+}
+
+
+.container{
+    max-width: 1270px;
+    margin: auto;
+    padding: 15px;
+}
+
+.house-form,
+.apartments-form,
+.people-form,
+.house-card{
+    max-width: 500px;
+    margin: auto;
+
+}
+.house-form form,
+.apartments-form form ,
+.people-form form,
+.house-card{
+    display: flex;
+    flex-direction: column;
+}
+.house-form form >*:not(:last-child),
+.apartments-form form >*:not(:last-child),
+.people-form form >*:not(:last-child){
+    margin-bottom: 10px;
+}
+
+.error{
+    border: 1px solid red;
+    outline: 1px solid red;
+}
+.house-card{
+
+}
+.house-card p{
+    font-size: 18px;
+}
+.house-card ul{
+    font-size: 18px;
+}
+.house-card{
+    border: 1px solid #080808;
+}
+.d-none{
+    display: none;
+}
+.d-visible{
+    display: block;
+}
+
+.name-block{
+    padding-left: 100px;
+}

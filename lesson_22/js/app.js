@@ -28,15 +28,20 @@
 //     const houseData = {
 //         address: document.getElementById(`inputOne`).value,
 //         floors: document.getElementById(`inputTwo`).value,
-//         flatsCounter: document.getElementById(`inputThree`).value,
+//         apartments: document.getElementById(`inputThree`).value,
 //     }
 //     console.log(houseData)
 //
 //     house.address = houseData.address;
 //     house.floors = houseData.floors;
-//     house.apartCounter = houseData.flatsCounter;
-//     displayInputs(`enter flat number`, `enter rooms amount`, `Enter number of people`)
-//
+//     house.apartmentsCounter = houseData.apartments
+//     // for (let i =1 ;i<=houseData.apartments;i++){
+//     //     displayInputs(`Enter flat number for Apartment ${i}`,
+//     //         `Enter rooms amount for Apartment ${i}`,
+//     //         `Enter number of people for Apartment ${i}`);
+//     // }
+//     //
+//     createApartmentForm()
 // }
 //
 // function createApartment() {
@@ -67,14 +72,14 @@
 // }
 //
 // function sendForm() {
-//         document.getElementById(`sendBtn`).style.visibility = 'hidden';
-//         house.showInfo()
+//     document.getElementById(`sendBtn`).style.visibility = 'hidden';
+//     house.showInfo()
 // }
 //
 // document.getElementById(`sendBtn`).addEventListener('click', () => {
 //     if (dataEntryStep === 1) {
 //         createHouse()
-//         dataEntryStep++
+//         // dataEntryStep++
 //     } else if (dataEntryStep === 2) {
 //         createApartment()
 //         dataEntryStep++
@@ -89,5 +94,5 @@
 // })
 //
 // displayForm()
-
-
+//
+//
