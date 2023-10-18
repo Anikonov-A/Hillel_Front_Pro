@@ -14,13 +14,11 @@ function sendMessage() {
 
 function validation(message) {
     if (message.trim() !== "") {
-        userInput.style.border = '1px solid black';
-        userInput.style.outline = '1px solid black';
+        userInput.classList.remove(`outline`)
         return true
     } else {
         userInput.placeholder = 'Enter your message first';
-        userInput.style.border = '1px solid red';
-        userInput.style.outline = '1px solid red';
+        userInput.classList.add(`outline`)
         return false
     }
 }

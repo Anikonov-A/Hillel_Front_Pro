@@ -46,3 +46,7 @@
     background-color: lightcoral;
     border-radius: 13px;
 }
+.outline{
+    border : 1px solid red;
+    outline :1px solid red;
+}
