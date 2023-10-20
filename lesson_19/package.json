@@ -16,7 +16,6 @@
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
-    "browser-sync": "^2.29.3",
     "eslint": "^8.51.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
@@ -25,8 +24,10 @@
     "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-eslint": "^6.0.0",
+    "gulp-livereload": "^4.0.2",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
+    "gulp-webserver": "^0.9.1",
     "sass": "^1.69.4"
   }
 }
