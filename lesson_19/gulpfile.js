@@ -83,6 +83,7 @@ function buildStyles() {
         .pipe(cleanCSS())
         .pipe(gulp.dest(BUILD_FOLDER))
         .pipe(livereload())
+
 }
 
 gulp.task('default', gulp.series(jsTask, buildStyles,webServer, watcher))
