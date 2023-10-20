@@ -10,7 +10,7 @@ import concat from 'gulp-concat';
 import babel from 'gulp-babel'
 import autoprefixer from 'gulp-autoprefixer'
 import cleanCSS from 'gulp-clean-css'
-import eslint from 'gulp-eslint'
+// import eslint from 'gulp-eslint'
 
 const BUILD_FOLDER = './dist/';
 const JS_SRC_FOLDER = './js/*.js'
