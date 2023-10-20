@@ -1,3 +1,5 @@
+
+
 const domElements={
     'people':{
         "btn": document.getElementById('peopleBtn'),

@@ -1,3 +1,4 @@
+
 function getAndDisplayAllData(urlObject, elements, elementsKey, currentPage, dataProp, dataPropKey) {
     const {btn, list, nextBtn, prevBtn, block, modalTitle, modalList} = elements[elementsKey];
     function displayAllData() {
