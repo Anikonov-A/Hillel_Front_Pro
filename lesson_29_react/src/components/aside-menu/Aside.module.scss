@@ -1,0 +1,12 @@
+.container{
+  width: 300px;
+  border-right: 2px solid #21222A;
+  text-align: center;
+  height:calc(100vh - 190px);
+  display: flex;
+  flex-direction: column;
+}
+.container > * {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}

@@ -1,0 +1,20 @@
+.navigation {
+
+
+  .list {
+    display: flex;
+    gap: 40px;
+
+    .item {
+
+      a {
+        font-size: 24px;
+        color: white;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+

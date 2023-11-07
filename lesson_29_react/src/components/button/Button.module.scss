@@ -1,0 +1,18 @@
+.button {
+  color: white;
+  padding: 7px 20px;
+  outline: none;
+  border: transparent;
+  border-radius: 13px;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+.clicked{
+  background-color: #1a7183;
+}
+.default{
+  background-color: #00D8FF;
+}
