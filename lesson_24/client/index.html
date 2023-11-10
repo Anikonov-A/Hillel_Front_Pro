@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Caffe app</title>
+</head>
+<body>
+<div id="wrapper">
+    <div id="menu"></div>
+    <div id="content"></div>
+    <div id="order" class="d-flex flex-column">
+        <ul id="orderList" class=""></ul>
+        <div id="finalPrice" class=""></div>
+        <button id="checkout" class="btn btn-primary d-none">Checkout</button>
+    </div>
+</div>
+
+<div class="modal fade" id="burgerModal" tabindex="-1" aria-labelledby="burgerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="burgerModalLabel">Modify your burger</h5>
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+            </div>
+            <div class="modal-body">
+                <form class="order-card d-flex flex-column">
+                        <h2>Choose hamburger size:</h2>
+                        <label for="big">Big Hamburger(+100 $)
+                            <input type="radio" id="big" name="size" checked>
+                        </label>
+                        <label for="small">Small Hamburger(+50 $)
+                            <input type="radio" id="small" name="size">
+                        </label>
+                        <h2>Choose stuffing: </h2>
+                        <label for="cheese">Add cheese (+10 $)
+                            <input type="radio" id="cheese" name="stuffing">
+                        </label>
+                        <label for="salad">Add salad (+20 $)
+                            <input type="radio" id="salad" name="stuffing">
+                        </label>
+                        <label for="fries">Add fries (+15 $)
+                            <input type="radio" id="fries" name="stuffing">
+                        </label>
+                        <h2>Choose topping: </h2>
+                        <label for="seasoning">Add seasoning (+15 $)
+                            <input type="radio" id="seasoning" name="topping">
+                        </label>
+                        <label for="mayo">Add mayo (+20 $)
+                            <input type="radio" id="mayo" name="topping">
+                        </label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addToCard">Add to card</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="validationModalLabel">Fill your information</h5>
+            </div>
+            <div class="modal-body ">
+                <form id="validationForm" class="d-flex flex-column gap-1">
+                    <label for="name">Enter Your Name</label>
+                    <input type="text" id="name">
+                    <span id="errorName"></span>
+                    <label for="surname">Enter Your Surname</label>
+                    <input type="text" id="surname">
+                    <span id="errorSurname"></span>
+                    <label for="address">Enter your address </label>
+                    <input type="text" id="address">
+                    <span id="errorAddress"></span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="validBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
