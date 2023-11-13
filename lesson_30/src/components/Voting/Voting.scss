@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  width: 1000px;
+  margin: 0 auto;
+  justify-content: space-evenly;
+}
+
+.result{
+  max-width: 1000px;
+  margin: auto;
+
+  &>h3{
+    margin:0 auto 20px;
+    width: 300px;
+
+
+  }
+  &>div{
+    margin: auto;
+    max-width: 130px;
+  }
+}
