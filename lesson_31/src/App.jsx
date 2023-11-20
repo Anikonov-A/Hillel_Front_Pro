@@ -1,7 +1,7 @@
 import './App.css';
-import Contacts from "./contacts/Contacts";
+import Contacts from "./Contacts/Contacts";
 import {useEffect, useState} from "react";
-import AddContact from "./addContact/AddContact";
+import AddContact from "./AddContact/AddContact";
 
 function App() {
     const USERS_DATA = 'https://jsonplaceholder.typicode.com/users'
@@ -38,11 +38,11 @@ function App() {
                 </button>
                 <button className="text-xl bg-sky-700 rounded px-4 py-1 text-blue-50 hover:bg-sky-600 duration-300"
                         onClick={() => {
-                            setPage('addContact')
+                            setPage('AddContact')
                         }}>Add Contact
                 </button>
             </div>
-            {page === 'contacts' ? (<Contacts contacts={contacts} deleteContact={deleteContact}/>) : (< AddContact saveContact={saveContact} handleBackToContacts={handleBackToContacts}/>)}
+            {page === 'contacts' ?(contacts.length > 0 ? (<Contacts contacts={contacts} deleteContact={deleteContact}/>) :(<h2 className="text-center text-2xl py-24">There is no data here</h2>)) :(< AddContact saveContact={saveContact} handleBackToContacts={handleBackToContacts}/>)}
         </div>
     );
 }
