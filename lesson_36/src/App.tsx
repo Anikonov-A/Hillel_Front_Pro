@@ -6,13 +6,7 @@ import { useDispatch } from "react-redux";
 import { getContacts } from "./store/contactSlice";
 import { useEffect } from "react";
 import {AppDispatch} from "./store/store";
-
-
-interface AppProps {}
-
-
-
-function App(props: AppProps) {
+function App() {
   const dispatch:AppDispatch = useDispatch();
 
   useEffect(() => {
